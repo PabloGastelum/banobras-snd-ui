@@ -1,0 +1,114 @@
+/*
+ * Campo de UKI (Fields: Text field y Text area). Etiqueta, control y ayuda separados por spacing-4. Los estados del
+ * control solo cambian borde, fondo y texto. El borde de 2 px de Focus y Error se dibuja con 1 px de borde y 1 px de
+ * sombra interior para que el texto no se mueva.
+ */
+.uki-field {
+  display: grid;
+  align-content: start;
+  gap: var(--spacing-4);
+  min-width: 0;
+}
+
+.uki-field__label {
+  justify-self: start;
+  color: var(--text-primary);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-label);
+  line-height: var(--font-line-height-label);
+  font-weight: var(--font-weight-medium);
+}
+
+.uki-field__asterisco {
+  color: var(--field-required);
+}
+
+.uki-field__pie {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-8);
+}
+
+.uki-field__mensaje,
+.uki-field__contador {
+  margin: 0;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-caption);
+  line-height: var(--font-line-height-caption);
+  color: var(--text-secondary);
+}
+
+.uki-field__mensaje--error,
+.uki-field__contador--excedido {
+  color: var(--feedback-error-foreground);
+}
+
+.uki-field__contador {
+  margin-left: auto;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* Control: Text field (_Input) y Text area (_Textarea box). Select reutiliza estas clases en su caja. */
+.uki-input {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  height: 48px;
+  margin: 0;
+  padding: 0 var(--spacing-16);
+  border: 1px solid var(--field-border);
+  border-radius: var(--radius-4);
+  background: var(--field-background);
+  color: var(--text-primary);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-body-md);
+  line-height: var(--font-line-height-body-md);
+  outline: none;
+  transition:
+    border-color 120ms ease-out,
+    box-shadow 120ms ease-out;
+}
+
+.uki-input::placeholder {
+  color: var(--field-placeholder);
+  opacity: 1;
+}
+
+.uki-input--textarea {
+  height: auto;
+  min-height: 120px;
+  padding: var(--spacing-12) var(--spacing-16);
+  resize: vertical;
+}
+
+@media (hover: hover) {
+  .uki-input:hover:not(:disabled, [aria-disabled='true'], :focus, .uki-input--activo, [aria-invalid='true']) {
+    border-color: var(--field-border-hover);
+  }
+}
+
+.uki-input:focus,
+.uki-input--activo {
+  border-color: var(--field-border-focus);
+  box-shadow: inset 0 0 0 1px var(--field-border-focus);
+}
+
+.uki-input[aria-invalid='true'] {
+  border-color: var(--feedback-error-foreground);
+  box-shadow: inset 0 0 0 1px var(--feedback-error-foreground);
+}
+
+.uki-input:disabled,
+.uki-input[aria-disabled='true'] {
+  border-color: var(--field-border);
+  box-shadow: none;
+  background: var(--field-disabled-background);
+  color: var(--text-disabled);
+  cursor: not-allowed;
+}
+
+.uki-input:disabled::placeholder {
+  color: var(--text-disabled);
+}
