@@ -42,6 +42,10 @@ El Sistema Nacional de Diseño solo se distribuye como CSS y JS por CDN: no hay 
 | **Select** | `<uki-select>` | `options` · `placeholder` · `label` · `required` · `helper` · `error`; *select-only combobox* de WAI-ARIA con teclado completo |
 | **Search** | `<uki-search>` | `size`: `default` (40 px) · `large` (48 px) · `(buscar)` con espera de 300 ms · `resultados` anunciados · × y Esc borran |
 | **Spinner** | `<uki-spinner>` | `size`: 24 · 36 · 48 · `label` |
+| **Alert** | `<uki-alert>` | `type`: `success` · `info` · `warning` · `error` · `icon` · `dismissible` · `[(open)]`; el mensaje es el contenido (admite enlaces) |
+| **Toast** | `UkiToastService` | `success()` · `info()` · `warning()` · `error()` · `show({ type, title, description, duration })`; uno a la vez, anunciado sin mover el foco |
+| **Badge** | `<uki-badge>` | `type`: `success` · `info` · `warning` · `error`; la etiqueta es el contenido |
+| **Avatar** | `<uki-avatar>` | `name` · `src` · `size`: `xs` 24 · `sm` 32 · `md` 40 · `lg` 48 · `xl` 56 · `status` · `decorative` · `initials` |
 
 > [!NOTE]
 > UKI va en la v0.5.0 de Figma y todavía puede cambiar tokens antes de su v1.0.0. El paquete registra la versión que implementa en `uki.figmaVersion` de [`projects/uki/package.json`](projects/uki/package.json).
@@ -111,6 +115,22 @@ export class Guardar {
 <uki-select label="Tipo de trámite" [options]="tramites" formControlName="tramite" error="Elige un tipo de trámite." />
 <uki-search placeholder="Buscar por folio o solicitante" ariaLabel="Buscar en la tabla"
             [resultados]="total()" (buscar)="filtrar($event)" />
+
+<!-- Retroalimentación: Error lleva role="alert"; los demás, role="status". -->
+<uki-alert type="error" dismissible [(open)]="hayError">
+  No pudimos enviar la solicitud. <a routerLink="/requisitos">Revisa los requisitos</a>.
+</uki-alert>
+<uki-badge type="warning">En revisión</uki-badge>
+<uki-avatar name="Mariana López Hernández" src="/fotos/mlopez.jpg" size="lg" status />
+```
+
+```ts
+// Toast: desde el código, sin nada en la plantilla. Success e Info se cierran a los 5 s; Warning y Error, al cerrarlos.
+private readonly avisos = inject(UkiToastService);
+
+guardar(): void {
+  this.avisos.success('Solicitud enviada', 'Te enviamos el acuse por correo.');
+}
 ```
 
 <details>
@@ -120,6 +140,9 @@ export class Guardar {
 - `loading` ignora clics y envíos sin quitar el foco y marca `aria-busy`. El texto se oculta a la vista, pero sigue siendo el nombre accesible. La variante `ghost` no tiene loading en UKI.
 - En `<a ukiButton disabled>` se cancela la navegación y el enlace sale del orden de tabulación.
 - `indeterminate` se apaga cuando la persona hace clic, igual que en el control nativo.
+- **Toast** crea una sola región al final de `<body>` con dos regiones vivas fijas (`status` y `alert`); el aviso no toma el foco, se pausa con el puntero encima o el foco dentro, y Esc lo cierra si el foco está dentro. Un aviso nuevo reemplaza al visible.
+- **Alert** con `dismissible` se oculta al cerrarlo y lleva el foco al siguiente elemento enfocable.
+- **Avatar** sin `src`, o si la foto no carga, muestra las iniciales de `name` (sin «de», «del», «la», «los», «las» ni «y») sobre `brand/primary`. Con el nombre escrito al lado, usa `decorative`.
 
 </details>
 
@@ -147,7 +170,7 @@ La documentación está publicada en **<https://banobras-uki.vercel.app>** (desp
 | <img src="docs/img/ejemplo-codigo.png" alt="Ejemplo de formulario reactivo con «Ver código» abierto y pestañas avisos.html y avisos.ts." width="440"> | <img src="docs/img/menu-movil.png" alt="Menú de navegación abierto en un teléfono, con la marca UKI, los grupos Fundamentos y Componentes y el botón para cerrar." width="200"> |
 | **Ejemplos vivos.** Cada ejemplo tiene «Ver código» (pestañas `.html` / `.ts` / `.css` con resaltado) y «Copiar». Los tokens y las escalas de color se copian con un clic. | **Responsiva.** En móvil la navegación vive en un menú lateral; en escritorio hay índice «En esta página» y anterior/siguiente. |
 
-Incluye **Fundamentos** (colores, espaciado, retícula, radios, elevación y tipografía) y **Componentes** (Button, Checkbox y Spinner con Overview, Átomos, Anatomía y Estados), además de un selector de tema y un enlace a Figma en cada página.
+Incluye **Fundamentos** (colores, espaciado, retícula, radios, elevación y tipografía) y **Componentes** (Alert, Avatar, Badge, Button, Checkbox, Search, Select, Spinner, Text area, Text field y Toast, con la distribución de cada página de Figma: Overview, Átomos o Moléculas, Anatomía y Estados, Tipos o Tamaños), además de un selector de tema y un enlace a Figma en cada página.
 
 ## Accesibilidad
 
@@ -177,7 +200,8 @@ Requiere Node 24.11.1 o posterior.
 ```text
 projects/
   uki/                 Librería @banobras/uki
-    src/lib/           button, button-group, checkbox, spinner
+    src/lib/           button, button-group, checkbox, spinner, field, select, search,
+                       alert, toast, badge, avatar
     styles/            uki.css → fonts.css, tokens.css (generado), base.css
     tokens/            uki-figma.json, exportado de Figma
     fonts/             Patria y Noto Sans, con sus licencias
@@ -203,6 +227,7 @@ docs/sdlc/             Intención, especificación y plan
 
 - Registro privado y responsable de publicar versiones.
 - Comparar con Figma la estela del Spinner y los íconos del Checkbox.
-- Componentes siguientes de UKI: Badge, Avatar, Alert, Toast, Modal, Breadcrumbs y Table (Radio aún no existe en UKI).
+- Comparar con Figma los íconos dibujados (`check-circle`, `info-circle`, `exclamation-triangle`, `x-circle`, `x`) y confirmar con diseño las iniciales del Avatar sin foto y el relleno de Badge.
+- Componentes siguientes de UKI: Modal, Breadcrumbs y Table (Radio aún no existe en UKI). Modal tiene que resolver la región de avisos de Toast dentro de un diálogo abierto.
 
 La intención, la especificación y el plan, con sus decisiones y desviaciones, están en [`docs/sdlc/`](docs/sdlc/).

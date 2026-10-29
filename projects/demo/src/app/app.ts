@@ -33,6 +33,9 @@ const GRUPOS: { titulo: string; enlaces: Enlace[] }[] = [
   {
     titulo: 'Componentes',
     enlaces: [
+      { ruta: '/alert', texto: 'Alert', figma: '268-1858' },
+      { ruta: '/avatar', texto: 'Avatar', figma: '310-747' },
+      { ruta: '/badge', texto: 'Badge', figma: '359-3226' },
       { ruta: '/button', texto: 'Button', figma: '195-3254' },
       { ruta: '/checkbox', texto: 'Checkbox', figma: '359-2693' },
       { ruta: '/search', texto: 'Search', figma: '375-59' },
@@ -40,6 +43,7 @@ const GRUPOS: { titulo: string; enlaces: Enlace[] }[] = [
       { ruta: '/spinner', texto: 'Spinner', figma: '292-2961' },
       { ruta: '/text-area', texto: 'Text area', figma: '445-931' },
       { ruta: '/text-field', texto: 'Text field', figma: '210-140' },
+      { ruta: '/toast', texto: 'Toast', figma: '450-59' },
     ],
   },
 ];

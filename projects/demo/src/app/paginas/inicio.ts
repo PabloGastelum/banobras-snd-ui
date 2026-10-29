@@ -30,6 +30,9 @@ const SECCIONES = [
     titulo: 'Componentes',
     descripcion: 'Componentes Angular listos para usar, con sus variantes, estados y código.',
     enlaces: [
+      { ruta: '/alert', texto: 'Alert' },
+      { ruta: '/avatar', texto: 'Avatar' },
+      { ruta: '/badge', texto: 'Badge' },
       { ruta: '/button', texto: 'Button' },
       { ruta: '/checkbox', texto: 'Checkbox' },
       { ruta: '/search', texto: 'Search' },
@@ -37,6 +40,7 @@ const SECCIONES = [
       { ruta: '/spinner', texto: 'Spinner' },
       { ruta: '/text-area', texto: 'Text area' },
       { ruta: '/text-field', texto: 'Text field' },
+      { ruta: '/toast', texto: 'Toast' },
     ],
   },
 ];

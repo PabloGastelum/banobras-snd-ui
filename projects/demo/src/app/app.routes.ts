@@ -8,6 +8,9 @@ export const routes: Routes = [
   { path: 'radios', title: 'Radios · UKI', loadComponent: () => import('./paginas/radios') },
   { path: 'elevacion', title: 'Elevación · UKI', loadComponent: () => import('./paginas/elevacion') },
   { path: 'tipografia', title: 'Tipografía · UKI', loadComponent: () => import('./paginas/tipografia') },
+  { path: 'alert', title: 'Alert · UKI', loadComponent: () => import('./paginas/alert') },
+  { path: 'avatar', title: 'Avatar · UKI', loadComponent: () => import('./paginas/avatar') },
+  { path: 'badge', title: 'Badge · UKI', loadComponent: () => import('./paginas/badge') },
   { path: 'button', title: 'Button · UKI', loadComponent: () => import('./paginas/botones') },
   { path: 'checkbox', title: 'Checkbox · UKI', loadComponent: () => import('./paginas/casillas') },
   { path: 'search', title: 'Search · UKI', loadComponent: () => import('./paginas/search') },
@@ -15,6 +18,7 @@ export const routes: Routes = [
   { path: 'spinner', title: 'Spinner · UKI', loadComponent: () => import('./paginas/spinner') },
   { path: 'text-area', title: 'Text area · UKI', loadComponent: () => import('./paginas/text-area') },
   { path: 'text-field', title: 'Text field · UKI', loadComponent: () => import('./paginas/text-field') },
+  { path: 'toast', title: 'Toast · UKI', loadComponent: () => import('./paginas/toast') },
   {
     path: 'muestra/grupo-botones',
     title: 'Button group · UKI',
