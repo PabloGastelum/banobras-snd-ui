@@ -32,7 +32,11 @@ const SECCIONES = [
     enlaces: [
       { ruta: '/button', texto: 'Button' },
       { ruta: '/checkbox', texto: 'Checkbox' },
+      { ruta: '/search', texto: 'Search' },
+      { ruta: '/select', texto: 'Select' },
       { ruta: '/spinner', texto: 'Spinner' },
+      { ruta: '/text-area', texto: 'Text area' },
+      { ruta: '/text-field', texto: 'Text field' },
     ],
   },
 ];

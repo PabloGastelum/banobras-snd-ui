@@ -10,7 +10,11 @@ export const routes: Routes = [
   { path: 'tipografia', title: 'Tipografía · UKI', loadComponent: () => import('./paginas/tipografia') },
   { path: 'button', title: 'Button · UKI', loadComponent: () => import('./paginas/botones') },
   { path: 'checkbox', title: 'Checkbox · UKI', loadComponent: () => import('./paginas/casillas') },
+  { path: 'search', title: 'Search · UKI', loadComponent: () => import('./paginas/search') },
+  { path: 'select', title: 'Select · UKI', loadComponent: () => import('./paginas/select') },
   { path: 'spinner', title: 'Spinner · UKI', loadComponent: () => import('./paginas/spinner') },
+  { path: 'text-area', title: 'Text area · UKI', loadComponent: () => import('./paginas/text-area') },
+  { path: 'text-field', title: 'Text field · UKI', loadComponent: () => import('./paginas/text-field') },
   {
     path: 'muestra/grupo-botones',
     title: 'Button group · UKI',
