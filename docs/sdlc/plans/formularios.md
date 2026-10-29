@@ -1,7 +1,7 @@
 # Plan: Campos de formulario de UKI, entrega 2 (desde specs/formularios.md)
 
 - Sistema: compartido · Slug: `formularios` · Riesgo: medio (alto en Select)
-- Aprobado por: pendiente (Pablo Gastelum) · Fecha: 29/10/2026
+- Aprobado por: Pablo Gastelum · Fecha: 29/10/2026
 - Repositorio: `PabloGastelum/banobras-snd-ui` · Rama: `feat/formularios` · Integra por PR a `main` con CI y vista previa de Vercel.
 
 ## Archivos que cambian
@@ -50,4 +50,11 @@ npm run e2e             # Playwright + axe con las rutas nuevas, ambos temas y m
 Además, CI en verde en el PR y revisión de la vista previa de Vercel contra Figma.
 
 ## Desviaciones durante la implementación
-Vacío.
+Todas del 29/10/2026.
+
+1. **Íconos dibujados, no exportados.** Exportar SVG desde Figma como lector implica descargar archivos; se dibujaron `search`, `chevron-down`, `check` y cierre con el trazo de 1.5 px de la librería (componente interno `uki-icono`). Pendiente compararlos con el juego «Linear» de UKI.
+2. **Select usa `<button role="combobox">`**, como dice D3; la etiqueta es un `<span>` ligado con `aria-labelledby` y no abre la lista al hacer clic (evita abrirla sin querer).
+3. **Error inmediato al pasar el límite del Text area.** RF-4 pide esperar a que el campo se toque; al pasar el límite del contador el mensaje aparece de inmediato, como en Figma («turns red when the limit is passed»).
+4. **Búsqueda por letra:** cualquier tecla que no sea letra reinicia las letras acumuladas (lo detectó una prueba unitaria).
+5. **Alto del campo dentro de rejillas:** el input se estiraba a 53 px en una rejilla con campos de distinta altura; ahora tiene alto fijo de 48 px y el campo se alinea arriba (lo detectó la E2E).
+6. **Documentación:** el bloque de ejemplo ya no recorta su contenido (la lista de Select se cortaba) y la anatomía acepta una escala menor para campos anchos.

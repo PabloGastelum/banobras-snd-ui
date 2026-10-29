@@ -37,6 +37,10 @@ El Sistema Nacional de Diseño solo se distribuye como CSS y JS por CDN: no hay 
 | **Button** | `<button ukiButton>` · `<a ukiButton>` | `variant`: `primary` · `secondary` · `ghost` · `danger`<br>`size`: `default` · `large`<br>`loading` · `disabled` · íconos con `ukiButtonLeading` / `ukiButtonTrailing` |
 | **Button group** | `<div ukiButtonGroup>` | A la derecha en escritorio; apilado con el Primary arriba en móvil. |
 | **Checkbox** | `<uki-checkbox>` | `ControlValueAccessor` · `[(checked)]` · `[(indeterminate)]` · `disabled` · `ariaLabel` |
+| **Text field** | `<uki-field>` + `<input ukiInput>` | `label` · `required` · `helper` · `error`; el input nativo conserva `type`, `autocomplete` y `formControlName` |
+| **Text area** | `<uki-field [maxlength]>` + `<textarea ukiInput>` | Contador «n/máximo» con límite flexible (el error lo marca el validador) |
+| **Select** | `<uki-select>` | `options` · `placeholder` · `label` · `required` · `helper` · `error`; *select-only combobox* de WAI-ARIA con teclado completo |
+| **Search** | `<uki-search>` | `size`: `default` (40 px) · `large` (48 px) · `(buscar)` con espera de 300 ms · `resultados` anunciados · × y Esc borran |
 | **Spinner** | `<uki-spinner>` | `size`: 24 · 36 · 48 · `label` |
 
 > [!NOTE]
@@ -96,6 +100,17 @@ export class Guardar {
 <uki-checkbox [(checked)]="todas" [indeterminate]="algunas()" ariaLabel="Seleccionar todas las filas" />
 
 <uki-spinner size="36" label="Cargando resultados" />
+
+<!-- Campos: el error aparece al salir de un campo inválido o al enviar. -->
+<uki-field label="Correo electrónico" helper="Te enviaremos el acuse." error="Escribe un correo con el formato nombre@dominio.mx">
+  <input ukiInput type="email" autocomplete="email" formControlName="correo" />
+</uki-field>
+<uki-field label="Motivo" [maxlength]="500" error="Usa máximo 500 caracteres.">
+  <textarea ukiInput formControlName="motivo"></textarea>
+</uki-field>
+<uki-select label="Tipo de trámite" [options]="tramites" formControlName="tramite" error="Elige un tipo de trámite." />
+<uki-search placeholder="Buscar por folio o solicitante" ariaLabel="Buscar en la tabla"
+            [resultados]="total()" (buscar)="filtrar($event)" />
 ```
 
 <details>
@@ -188,6 +203,6 @@ docs/sdlc/             Intención, especificación y plan
 
 - Registro privado y responsable de publicar versiones.
 - Comparar con Figma la estela del Spinner y los íconos del Checkbox.
-- Componentes siguientes de UKI: Text field, Select, Text area, Badge, Avatar, Alert, Toast, Modal, Search, Breadcrumbs y Table.
+- Componentes siguientes de UKI: Badge, Avatar, Alert, Toast, Modal, Breadcrumbs y Table (Radio aún no existe en UKI).
 
 La intención, la especificación y el plan, con sus decisiones y desviaciones, están en [`docs/sdlc/`](docs/sdlc/).

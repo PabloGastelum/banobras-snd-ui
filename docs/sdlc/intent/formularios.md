@@ -1,6 +1,6 @@
 # Intent: Campos de formulario de UKI (entrega 2)
 
-- Sistema: compartido (Portal FONADIN, SISSARR, SAAIPB, SISEC, SIVARMER) · Slug: `formularios` · Estado: draft
+- Sistema: compartido (Portal FONADIN, SISSARR, SAAIPB, SISEC, SIVARMER) · Slug: `formularios` · Estado: accepted
 - Autor: Pablo Gastelum (frontend) · Fecha: 29/10/2026
 - Origen: plan de entregas acordado el 29/10/2026 después de la entrega 1 (`biblioteca-componentes-uki`). Fuera de la fábrica, con el mismo orden intención → especificación → plan → código.
 - Referencias: UKI - Library en Figma, páginas **Fields** (`208:245`: Text field `210:140`, Text area `445:931`, Select `445:274`) y **Search** (`375:59`). Leídas desde el navegador integrado con permiso de lector (árbol de capas y panel de Propiedades), sin usar la cuota del MCP.

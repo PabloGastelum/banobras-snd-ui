@@ -1,7 +1,7 @@
 # Spec: Campos de formulario de UKI, entrega 2 (desde intent/formularios.md)
 
-- Sistema: compartido · Slug: `formularios` · Estado: draft
-- Aprobado por: pendiente (Pablo Gastelum) · Fecha: 29/10/2026
+- Sistema: compartido · Slug: `formularios` · Estado: approved
+- Aprobado por: Pablo Gastelum · Fecha: 29/10/2026
 - Fuente: UKI - Library v0.5.0, leída el 29/10/2026 desde el navegador integrado (árbol de capas completo y panel de Propiedades de cada parte). Nodos: Text field `210:140` (`_Label 220:194`, `_Input 214:5781`, `_Helper 214:5795`, molécula `214:5802`); Text area `445:931` (`_Textarea box 443:249`, molécula `443:417`); Select `445:274` (`_Select box 443:189`, `_Option 443:206`, `_Select menu 443:207`, molécula `443:344`); Search `375:59` (componente `375:124`).
 - Fuera de la fábrica: no aplican RN, TP ni `trazabilidad.csv`.
 
@@ -13,8 +13,8 @@ Se agregan a `@banobras/uki` los campos de UKI: Text field, Text area, Select y 
 |---|---|---|
 | D1 | **Campo como contenedor + control nativo proyectado.** `<uki-field>` dibuja la etiqueta, la ayuda, el error y el contador; el control es un `<input ukiInput>` o `<textarea ukiInput>` nativo dentro. | Igual que en Button: se conservan todos los atributos nativos (`type`, `autocomplete`, `inputmode`, `pattern`, `name`) sin volver a exponerlos uno por uno, y `formControlName`/`ngModel` van directo al control nativo, sin `ControlValueAccessor` propio. |
 | D2 | `uki-field` toma el estado del control (`NgControl`) para decidir el error, `aria-invalid`, `aria-required` y `aria-describedby`, y genera los `id` que unen etiqueta, control, ayuda y contador. | Las reglas de accesibilidad de Figma (`aria-required`, `aria-describedby`, `aria-invalid`) quedan resueltas una vez y no en cada sistema. |
-| D3 | **Select propio** (`<uki-select>`) con el patrón *select-only combobox* de WAI-ARIA: botón con `role="combobox"`, lista con `role="listbox"`, `aria-activedescendant` e implementa `ControlValueAccessor`. Pendiente de confirmar (pregunta 1 del intent). | El `<select>` nativo no permite dibujar el estado Open de UKI (opción seleccionada con fondo y palomita, hover, sombra `Elevation/overlay`). |
-| D4 | **Text area con límite flexible**: `maxlength` del campo solo dibuja el contador; el error lo marca el validador del formulario (`Validators.maxLength`). Pendiente de confirmar (pregunta 2). | Figma pide que el contador se ponga rojo al pasar el límite; con `maxlength` nativo no se puede pasar y el texto pegado se corta sin aviso. |
+| D3 | **Select propio** (`<uki-select>`) con el patrón *select-only combobox* de WAI-ARIA: botón con `role="combobox"`, lista con `role="listbox"`, `aria-activedescendant` e implementa `ControlValueAccessor`. Confirmado por Pablo el 29/10/2026. | El `<select>` nativo no permite dibujar el estado Open de UKI (opción seleccionada con fondo y palomita, hover, sombra `Elevation/overlay`). |
+| D4 | **Text area con límite flexible**: `maxlength` del campo solo dibuja el contador; el error lo marca el validador del formulario (`Validators.maxLength`). Confirmado por Pablo el 29/10/2026. | Figma pide que el contador se ponga rojo al pasar el límite; con `maxlength` nativo no se puede pasar y el texto pegado se corta sin aviso. |
 | D5 | **Search como componente propio** (`<uki-search>`) con `<input type="search">` dentro de `role="search"`, `ControlValueAccessor` y salida `(buscar)` con espera de 300 ms. No filtra nada. | Así lo describe Figma, y en el programa el filtrado va en el servidor. |
 | D6 | El borde de 2 px de Focus y Error se dibuja como borde de 1 px más una sombra interior de 1 px. | Figma usa 2 px; así el texto no se mueve un píxel al enfocar. El resultado visual es el mismo. |
 
@@ -108,8 +108,8 @@ Cuatro páginas nuevas en el grupo Componentes (Text field, Text area, Select y 
 | Figma no dice si el error se muestra al perder el foco o al enviar. Esta especificación usa «al perder el foco o al enviar», que es lo que dice el flujo de Figma («invalid on blur»). | Diseño UKI | Propuesto |
 
 ## Preguntas abiertas heredadas del intent
-1. Select propio o nativo: **propuesto** propio (D3). Falta confirmarlo.
-2. Límite del Text area: **propuesto** flexible (D4). Falta confirmarlo.
+1. Select propio o nativo: **resuelta**: propio (D3).
+2. Límite del Text area: **resuelta**: flexible (D4).
 3. Íconos: **arrastrada**. Se prueba la exportación en el plan; si no se puede, se dibujan.
 4. Radio: **arrastrada** a diseño UKI.
 
