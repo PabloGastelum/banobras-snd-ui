@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Retrato ilustrado de ejemplo">
+  <rect width="200" height="200" fill="#e9ddcf"/>
+  <path d="M38 200c4-42 30-64 62-64s58 22 62 64Z" fill="#611232"/>
+  <path d="M86 124h28v20a14 14 0 0 1-28 0Z" fill="#c98f6b"/>
+  <ellipse cx="100" cy="92" rx="34" ry="40" fill="#d9a27f"/>
+  <path d="M64 92c-4-34 14-54 38-54 26 0 42 20 36 50-6-14-18-24-36-26-16 4-28 14-38 30Z" fill="#2b1d17"/>
+  <path d="M86 146h28l-14 18Z" fill="#f4efe8"/>
+</svg>
