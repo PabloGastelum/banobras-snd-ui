@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-const PAGINAS = ['', 'colores', 'espaciado', 'reticula', 'radios', 'elevacion', 'tipografia', 'button', 'checkbox', 'search', 'select', 'spinner', 'text-area', 'text-field'];
+const PAGINAS = ['', 'colores', 'espaciado', 'reticula', 'radios', 'elevacion', 'tipografia', 'alert', 'avatar', 'badge', 'button', 'checkbox', 'search', 'select', 'spinner', 'text-area', 'text-field', 'toast'];
 
 for (const pagina of PAGINAS) {
   test(`/${pagina} termina donde termina el contenido, sin franja ni desplazamiento horizontal`, async ({ page }) => {

@@ -9,6 +9,9 @@ const PAGINAS = [
   'radios',
   'elevacion',
   'tipografia',
+  'alert',
+  'avatar',
+  'badge',
   'button',
   'checkbox',
   'search',
@@ -16,6 +19,7 @@ const PAGINAS = [
   'spinner',
   'text-area',
   'text-field',
+  'toast',
   'muestra/grupo-botones',
 ];
 
