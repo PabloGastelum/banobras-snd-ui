@@ -1,0 +1,156 @@
+/*
+ * Toast de UKI (Toast › Anatomy y Types). La región va fija arriba a la derecha en escritorio y abajo al centro en móvil;
+ * el aviso usa los mismos tokens de retroalimentación que Alert.
+ */
+.uki-toast-region {
+  position: fixed;
+  z-index: 1000;
+  right: var(--spacing-16);
+  bottom: var(--spacing-16);
+  left: var(--spacing-16);
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+@media (min-width: 768px) {
+  .uki-toast-region {
+    top: var(--spacing-24);
+    right: var(--spacing-24);
+    bottom: auto;
+    left: auto;
+  }
+}
+
+/* Regiones vivas: existen siempre y solo se ven en lectores de pantalla. */
+.uki-toast-region__anuncio {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.uki-toast {
+  --_uki-toast-bg: var(--feedback-success-background);
+  --_uki-toast-fg: var(--feedback-success-foreground);
+
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-12);
+  width: 360px;
+  max-width: 100%;
+  padding: var(--spacing-16) var(--spacing-12) var(--spacing-16) var(--spacing-16);
+  border: 1px solid var(--_uki-toast-fg);
+  border-radius: var(--radius-8);
+  background-color: var(--_uki-toast-bg);
+  box-shadow: var(--elevation-floating);
+  color: var(--_uki-toast-fg);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-body-sm);
+  line-height: var(--font-line-height-body-sm);
+  pointer-events: auto;
+  animation: uki-toast-entrada 200ms ease-out;
+}
+
+.uki-toast--saliendo {
+  animation: uki-toast-salida 200ms ease-in forwards;
+}
+
+.uki-toast--info {
+  --_uki-toast-bg: var(--feedback-info-background);
+  --_uki-toast-fg: var(--feedback-info-foreground);
+}
+
+.uki-toast--warning {
+  --_uki-toast-bg: var(--feedback-warning-background);
+  --_uki-toast-fg: var(--feedback-warning-foreground);
+}
+
+.uki-toast--error {
+  --_uki-toast-bg: var(--feedback-error-background);
+  --_uki-toast-fg: var(--feedback-error-foreground);
+}
+
+.uki-toast__icon.uki-icono {
+  width: 24px;
+  height: 24px;
+}
+
+.uki-toast__content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.uki-toast__title,
+.uki-toast__description {
+  margin: 0;
+}
+
+.uki-toast__title {
+  font-weight: var(--font-weight-bold);
+}
+
+.uki-toast__description {
+  font-weight: var(--font-weight-regular);
+}
+
+.uki-toast__close {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-4);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.uki-toast__close .uki-icono {
+  width: 20px;
+  height: 20px;
+}
+
+.uki-toast__close:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 0;
+}
+
+@keyframes uki-toast-entrada {
+  from {
+    opacity: 0;
+    transform: translateY(var(--_uki-toast-desde, 8px));
+  }
+}
+
+@keyframes uki-toast-salida {
+  to {
+    opacity: 0;
+    transform: translateY(var(--_uki-toast-desde, 8px));
+  }
+}
+
+/* En escritorio entra desde arriba; en móvil, desde abajo. */
+@media (min-width: 768px) {
+  .uki-toast {
+    --_uki-toast-desde: -8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .uki-toast,
+  .uki-toast--saliendo {
+    animation: none;
+  }
+}

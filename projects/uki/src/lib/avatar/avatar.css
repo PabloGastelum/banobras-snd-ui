@@ -1,0 +1,87 @@
+/*
+ * Avatar de UKI (Avatar › Anatomy y Sizes): contenedor circular con borde, imagen y punto de estado. El tamaño y el punto
+ * se definen en propiedades locales (--_uki-avatar-*) que cambia cada tamaño.
+ */
+.uki-avatar {
+  --_uki-avatar-size: 40px;
+  --_uki-avatar-status: 10px;
+
+  position: relative;
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--_uki-avatar-size);
+  height: var(--_uki-avatar-size);
+  border: 1px solid var(--border-low-contrast);
+  border-radius: var(--radius-full);
+  background-color: var(--background-surface);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-body-sm);
+  line-height: 1;
+  font-weight: var(--font-weight-semibold);
+  vertical-align: middle;
+  user-select: none;
+}
+
+.uki-avatar--xs {
+  --_uki-avatar-size: 24px;
+  --_uki-avatar-status: 6px;
+  font-size: var(--font-size-caption);
+}
+
+.uki-avatar--sm {
+  --_uki-avatar-size: 32px;
+  --_uki-avatar-status: 8px;
+  font-size: var(--font-size-caption);
+}
+
+.uki-avatar--lg {
+  --_uki-avatar-size: 48px;
+  --_uki-avatar-status: 12px;
+  font-size: var(--font-size-body-md);
+}
+
+.uki-avatar--xl {
+  --_uki-avatar-size: 56px;
+  --_uki-avatar-status: 14px;
+  font-size: var(--font-size-body-lg);
+}
+
+.uki-avatar__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Sin foto: iniciales sobre el color de la marca, que sigue al tema. */
+.uki-avatar--initials {
+  background-color: var(--brand-primary);
+  color: var(--text-inverse);
+}
+
+.uki-avatar__initials {
+  letter-spacing: 0;
+}
+
+/* Punto de «en línea» en la esquina inferior derecha, con anillo de 2 px por fuera. */
+.uki-avatar__status {
+  position: absolute;
+  right: -1px;
+  bottom: -1px;
+  width: var(--_uki-avatar-status);
+  height: var(--_uki-avatar-status);
+  border-radius: 50%;
+  background-color: var(--avatar-status);
+  box-shadow: 0 0 0 2px var(--background-surface);
+}
+
+@media (forced-colors: active) {
+  .uki-avatar__status {
+    background-color: CanvasText;
+  }
+}

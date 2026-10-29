@@ -1,0 +1,93 @@
+/*
+ * Alert de UKI (Alert › Anatomy y Types): contenedor, ícono de estado, mensaje y botón de cerrar. Cada tipo solo cambia
+ * fondo y primer plano; el borde, el texto y los íconos usan el primer plano.
+ */
+.uki-alert {
+  --_uki-alert-bg: var(--feedback-success-background);
+  --_uki-alert-fg: var(--feedback-success-foreground);
+
+  box-sizing: border-box;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-12);
+  width: 100%;
+  padding: var(--spacing-12) var(--spacing-16);
+  border: 1px solid var(--_uki-alert-fg);
+  border-radius: var(--radius-4);
+  background-color: var(--_uki-alert-bg);
+  color: var(--_uki-alert-fg);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-body-md);
+  line-height: var(--font-line-height-body-md);
+  font-weight: var(--font-weight-regular);
+}
+
+.uki-alert[hidden] {
+  display: none;
+}
+
+.uki-alert--info {
+  --_uki-alert-bg: var(--feedback-info-background);
+  --_uki-alert-fg: var(--feedback-info-foreground);
+}
+
+.uki-alert--warning {
+  --_uki-alert-bg: var(--feedback-warning-background);
+  --_uki-alert-fg: var(--feedback-warning-foreground);
+}
+
+.uki-alert--error {
+  --_uki-alert-bg: var(--feedback-error-background);
+  --_uki-alert-fg: var(--feedback-error-foreground);
+}
+
+.uki-alert__icon.uki-icono {
+  width: 24px;
+  height: 24px;
+}
+
+.uki-alert__message {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.uki-alert__message > :first-child {
+  margin-top: 0;
+}
+
+.uki-alert__message > :last-child {
+  margin-bottom: 0;
+}
+
+.uki-alert__message a {
+  color: inherit;
+  font-weight: var(--font-weight-semibold);
+  text-decoration: underline;
+}
+
+.uki-alert__close {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-4);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.uki-alert__close .uki-icono {
+  width: 24px;
+  height: 24px;
+}
+
+.uki-alert__close:focus-visible,
+.uki-alert__message a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 0;
+}
