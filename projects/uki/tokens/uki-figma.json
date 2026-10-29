@@ -1,0 +1,48 @@
+{
+  "fuente": "UKI - Library (Figma 6fzZVvIfv44dGFePtb5F9n), exportado con la Plugin API el 29/10/2026. Formato de cada variable: nombre|tipo|valor por modo. '@' indica alias a otra variable.",
+  "figmaVersion": "0.5.0",
+  "collections": [
+    {
+      "name": "Primitives",
+      "modes": ["Value"],
+      "vars": ["pguinda/100|C|#f3e4e9","pverde/100|C|#e0e9e8","pverde/200|C|#b3c8c6","pverde/300|C|#82a4a0","pverde/400|C|#51807a","pverde/500|C|#335955","pverde/600|C|#004d40","pverde/700|C|#004339","pverde/800|C|#003931","pverde/900|C|#002f2a","pverde/950|C|#001d1a","pguinda/200|C|#e1bdc9","pguinda/300|C|#ce92a6","pguinda/400|C|#ba6783","pguinda/500|C|#a84565","pguinda/600|C|#9b2247","pguinda/700|C|#8e1d3f","pguinda/800|C|#781838","pguinda/900|C|#611232","pguinda/950|C|#4a0c26","gold/100|C|#f6f2ea","gold/200|C|#e4d9c0","gold/300|C|#dbccab","gold/400|C|#c9b280","gold/500|C|#b79956","gold/600|C|#a57f2c","gold/700|C|#846623","gold/800|C|#634c1a","gold/900|C|#423312","gold/950|C|#32260d","neutral/100|C|#ffffff","neutral/200|C|#f9f9f9","neutral/300|C|#f3f3f3","neutral/400|C|#dddddd","neutral/500|C|#aaaaaa","neutral/600|C|#767676","neutral/700|C|#434343","neutral/800|C|#161a1d","red/100|C|#fae5e5","red/500|C|#9b0f15","green/100|C|#f0faf5","green/500|C|#086308","blue/100|C|#edf2fe","blue/500|C|#224497","yellow/100|C|#ffeb99","purple/100|C|#ece2f5","orange/100|C|#f9d9a9","orange/500|C|#6e3700","purple/500|C|#6708c1","yellow/500|C|#684700","red/300|C|#e8a0a3","red/400|C|#b8232a","red/600|C|#730a0f"]
+    },
+    {
+      "name": "Semantic",
+      "modes": ["Guinda", "Verde"],
+      "vars": ["brand/primary|C|@pguinda/900|@pverde/900","brand/secondary|C|@pguinda/600|@pverde/500","brand/accent|C|@gold/600|@gold/600","text/primary|C|@neutral/800|@neutral/800","text/disabled|C|@neutral/600|@neutral/600","text/inverse|C|@neutral/100|@neutral/100","text/brand|C|@pguinda/900|@pverde/900","icon/primary|C|@pguinda/900|@pverde/600","icon/accent|C|@gold/600|@gold/600","icon/default|C|@neutral/800|@neutral/800","icon/inverse|C|@neutral/100|@neutral/100","border/high-contrast|C|@neutral/600|@neutral/600","border/low-contrast|C|@neutral/400|@neutral/400","border/selected|C|@blue/500|@blue/500","border/brand|C|@pguinda/900|@pverde/900","background/page|C|@neutral/200|@neutral/200","background/surface|C|@neutral/100|@neutral/100","background/brand|C|@pguinda/900|@pverde/900","feedback/error/background|C|@red/100|@red/100","feedback/error/foreground|C|@red/500|@red/500","feedback/success/background|C|@green/100|@green/100","feedback/success/foreground|C|@green/500|@green/500","feedback/info/background|C|@blue/100|@blue/100","feedback/info/foreground|C|@blue/500|@blue/500","feedback/warning/background|C|@yellow/100|@yellow/100","feedback/warning/foreground|C|@yellow/500|@yellow/500","complementary/purple/background|C|@purple/100|@purple/100","complementary/purple/foreground|C|@purple/500|@purple/500","complementary/orange/background|C|@orange/100|@orange/100","complementary/orange/foreground|C|@orange/500|@orange/500","text/secondary|C|@neutral/700|@neutral/700","sidebar/background|C|@pguinda/900|@pverde/900","sidebar/background-end|C|@pguinda/600|@pverde/600","sidebar/background-submenu|C|@pguinda/950|@pverde/950","sidebar/topbar|C|@pguinda/700|@pverde/700","sidebar/footer|C|@pguinda/950|@pverde/950","sidebar/item-hover|C|@pguinda/700|@pverde/700","sidebar/item-active|C|@pguinda/400|@pverde/400","sidebar/indicator|C|@pguinda/100|@pverde/100","sidebar/mobile-active|C|@pguinda/500|@pverde/500","button/primary|C|@pguinda/900|@pverde/900","button/primary-hover|C|@pguinda/600|@pverde/600","button/focus-ring|C|@pguinda/300|@pverde/300","button/tint|C|@pguinda/100|@pverde/100","button/tint-pressed|C|@pguinda/200|@pverde/200","button/ghost-pressed|C|@pguinda/950|@pverde/950","button/disabled-background|C|@neutral/400|@neutral/400","button/disabled-foreground|C|@neutral/500|@neutral/500","button/disabled-border|C|@neutral/600|@neutral/600","field/background|C|@neutral/100|@neutral/100","field/border|C|@neutral/400|@neutral/400","field/border-hover|C|@neutral/600|@neutral/600","field/border-focus|C|@pguinda/900|@pverde/900","field/placeholder|C|@neutral/600|@neutral/600","field/required|C|@pguinda/600|@pverde/600","field/disabled-background|C|@neutral/200|@neutral/200","avatar/status|C|@feedback/success/foreground|@feedback/success/foreground","header/background|C|@pguinda/900|@pverde/900","breadcrumb/link|C|@pguinda/700|@pverde/700","breadcrumb/link-hover|C|@pguinda/900|@pverde/900","breadcrumb/current|C|@text/primary|@text/primary","breadcrumb/separator|C|@neutral/500|@neutral/500","table/header-background|C|@neutral/300|@neutral/300","table/row|C|@neutral/100|@neutral/100","table/row-striped|C|@neutral/200|@neutral/200","table/row-hover|C|@neutral/300|@neutral/300","table/row-selected|C|@pguinda/100|@pverde/100","table/border|C|@neutral/400|@neutral/400","checkbox/border|C|@neutral/600|@neutral/600","checkbox/checked|C|@pguinda/900|@pverde/900","checkbox/selected|C|@pguinda/900|@pverde/900","modal/header|C|@neutral/700|@neutral/700","modal/header-foreground|C|@neutral/100|@neutral/100","button/danger|C|@red/500|@red/500","button/danger-hover|C|@red/400|@red/400","button/danger-pressed|C|@red/600|@red/600","button/danger-focus-ring|C|@red/300|@red/300"]
+    },
+    {
+      "name": "Spacing",
+      "modes": ["Value"],
+      "vars": ["spacing-0|F|0","spacing-2|F|2","spacing-4|F|4","spacing-8|F|8","spacing-12|F|12","spacing-16|F|16","spacing-20|F|20","spacing-24|F|24","spacing-32|F|32","spacing-40|F|40","spacing-48|F|48","spacing-64|F|64","spacing-80|F|80","spacing-96|F|96","spacing-128|F|128","spacing-160|F|160"]
+    },
+    {
+      "name": "Radius",
+      "modes": ["Value"],
+      "vars": ["radius-0|F|0","radius-4|F|4","radius-8|F|8","radius-12|F|12","radius-16|F|16","radius-24|F|24","radius-full|F|80"]
+    },
+    {
+      "name": "Typography",
+      "modes": ["Mobile", "Tablet", "Desktop"],
+      "vars": ["font/family/heading|S|Patria|Patria|Patria","font/family/body|S|Noto Sans|Noto Sans|Noto Sans","font/weight/regular|S|Regular|Regular|Regular","font/weight/medium|S|Medium|Medium|Medium","font/weight/semibold|S|SemiBold|SemiBold|SemiBold","font/weight/bold|S|Bold|Bold|Bold","font/size/h1|F|40|48|56","font/line-height/h1|F|48|56|64","font/size/h2|F|32|40|48","font/line-height/h2|F|40|48|56","font/size/h3|F|28|32|40","font/line-height/h3|F|36|40|48","font/size/h4|F|24|28|32","font/line-height/h4|F|32|36|40","font/size/h5|F|20|24|28","font/line-height/h5|F|28|32|36","font/size/h6|F|18|20|24","font/line-height/h6|F|24|28|32","font/size/body-lg|F|18|18|18","font/line-height/body-lg|F|28|28|28","font/size/body-md|F|16|16|16","font/line-height/body-md|F|24|24|24","font/size/body-sm|F|14|14|14","font/line-height/body-sm|F|20|20|20","font/size/label|F|14|14|14","font/line-height/label|F|20|20|20","font/size/caption|F|12|12|12","font/line-height/caption|F|16|16|16","font/size/button|F|16|16|16","font/line-height/button|F|24|24|24"]
+    },
+    {
+      "name": "Layout",
+      "modes": ["Mobile", "Tablet", "Desktop"],
+      "vars": ["web/columns|F|4|8|12","web/gutter|F|@spacing-16|@spacing-24|@spacing-24","web/margin|F|@spacing-16|@spacing-32|@spacing-80","web/max-width|F|1280|1280|1280","admin/columns|F|4|8|12","admin/gutter|F|@spacing-16|@spacing-24|@spacing-24","admin/margin|F|@spacing-16|@spacing-32|@spacing-32","admin/sidebar|F|@spacing-0|@spacing-64|256","admin/topbar|F|@spacing-64|@spacing-64|@spacing-64","breakpoint|F|320|768|1280"]
+    }
+  ],
+  "elevation": {
+    "nota": "Las sombras usan neutral/800 con opacidad: shadow-key 12 %, shadow-ambient 6 %, scrim 48 %. Cada estilo es [x, y, desenfoque, extensión] de la capa key y de la ambient.",
+    "color": "neutral/800",
+    "opacity": { "shadow-key": 12, "shadow-ambient": 6, "scrim": 48 },
+    "styles": {
+      "raised": { "key": [0, 1, 3, 0], "ambient": [0, 1, 2, 0] },
+      "overlay": { "key": [0, 4, 8, -2], "ambient": [0, 2, 4, -2] },
+      "floating": { "key": [0, 12, 16, -4], "ambient": [0, 4, 6, -2] },
+      "modal": { "key": [0, 20, 24, -4], "ambient": [0, 8, 8, -4] }
+    }
+  },
+  "breakpoints": { "Mobile": 0, "Tablet": 768, "Desktop": 1280 }
+}

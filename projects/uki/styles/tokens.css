@@ -1,0 +1,295 @@
+/* Generado por scripts/generar-tokens.mjs desde tokens/uki-figma.json · UKI v0.5.0 · tema Guinda por omisión. No editar a mano. */
+
+:root {
+  /* Primitives */
+  --pguinda-100: #f3e4e9;
+  --pverde-100: #e0e9e8;
+  --pverde-200: #b3c8c6;
+  --pverde-300: #82a4a0;
+  --pverde-400: #51807a;
+  --pverde-500: #335955;
+  --pverde-600: #004d40;
+  --pverde-700: #004339;
+  --pverde-800: #003931;
+  --pverde-900: #002f2a;
+  --pverde-950: #001d1a;
+  --pguinda-200: #e1bdc9;
+  --pguinda-300: #ce92a6;
+  --pguinda-400: #ba6783;
+  --pguinda-500: #a84565;
+  --pguinda-600: #9b2247;
+  --pguinda-700: #8e1d3f;
+  --pguinda-800: #781838;
+  --pguinda-900: #611232;
+  --pguinda-950: #4a0c26;
+  --gold-100: #f6f2ea;
+  --gold-200: #e4d9c0;
+  --gold-300: #dbccab;
+  --gold-400: #c9b280;
+  --gold-500: #b79956;
+  --gold-600: #a57f2c;
+  --gold-700: #846623;
+  --gold-800: #634c1a;
+  --gold-900: #423312;
+  --gold-950: #32260d;
+  --neutral-100: #ffffff;
+  --neutral-200: #f9f9f9;
+  --neutral-300: #f3f3f3;
+  --neutral-400: #dddddd;
+  --neutral-500: #aaaaaa;
+  --neutral-600: #767676;
+  --neutral-700: #434343;
+  --neutral-800: #161a1d;
+  --red-100: #fae5e5;
+  --red-500: #9b0f15;
+  --green-100: #f0faf5;
+  --green-500: #086308;
+  --blue-100: #edf2fe;
+  --blue-500: #224497;
+  --yellow-100: #ffeb99;
+  --purple-100: #ece2f5;
+  --orange-100: #f9d9a9;
+  --orange-500: #6e3700;
+  --purple-500: #6708c1;
+  --yellow-500: #684700;
+  --red-300: #e8a0a3;
+  --red-400: #b8232a;
+  --red-600: #730a0f;
+
+  /* Semantic */
+  --brand-primary: var(--pguinda-900);
+  --brand-secondary: var(--pguinda-600);
+  --brand-accent: var(--gold-600);
+  --text-primary: var(--neutral-800);
+  --text-disabled: var(--neutral-600);
+  --text-inverse: var(--neutral-100);
+  --text-brand: var(--pguinda-900);
+  --icon-primary: var(--pguinda-900);
+  --icon-accent: var(--gold-600);
+  --icon-default: var(--neutral-800);
+  --icon-inverse: var(--neutral-100);
+  --border-high-contrast: var(--neutral-600);
+  --border-low-contrast: var(--neutral-400);
+  --border-selected: var(--blue-500);
+  --border-brand: var(--pguinda-900);
+  --background-page: var(--neutral-200);
+  --background-surface: var(--neutral-100);
+  --background-brand: var(--pguinda-900);
+  --feedback-error-background: var(--red-100);
+  --feedback-error-foreground: var(--red-500);
+  --feedback-success-background: var(--green-100);
+  --feedback-success-foreground: var(--green-500);
+  --feedback-info-background: var(--blue-100);
+  --feedback-info-foreground: var(--blue-500);
+  --feedback-warning-background: var(--yellow-100);
+  --feedback-warning-foreground: var(--yellow-500);
+  --complementary-purple-background: var(--purple-100);
+  --complementary-purple-foreground: var(--purple-500);
+  --complementary-orange-background: var(--orange-100);
+  --complementary-orange-foreground: var(--orange-500);
+  --text-secondary: var(--neutral-700);
+  --sidebar-background: var(--pguinda-900);
+  --sidebar-background-end: var(--pguinda-600);
+  --sidebar-background-submenu: var(--pguinda-950);
+  --sidebar-topbar: var(--pguinda-700);
+  --sidebar-footer: var(--pguinda-950);
+  --sidebar-item-hover: var(--pguinda-700);
+  --sidebar-item-active: var(--pguinda-400);
+  --sidebar-indicator: var(--pguinda-100);
+  --sidebar-mobile-active: var(--pguinda-500);
+  --button-primary: var(--pguinda-900);
+  --button-primary-hover: var(--pguinda-600);
+  --button-focus-ring: var(--pguinda-300);
+  --button-tint: var(--pguinda-100);
+  --button-tint-pressed: var(--pguinda-200);
+  --button-ghost-pressed: var(--pguinda-950);
+  --button-disabled-background: var(--neutral-400);
+  --button-disabled-foreground: var(--neutral-500);
+  --button-disabled-border: var(--neutral-600);
+  --field-background: var(--neutral-100);
+  --field-border: var(--neutral-400);
+  --field-border-hover: var(--neutral-600);
+  --field-border-focus: var(--pguinda-900);
+  --field-placeholder: var(--neutral-600);
+  --field-required: var(--pguinda-600);
+  --field-disabled-background: var(--neutral-200);
+  --avatar-status: var(--feedback-success-foreground);
+  --header-background: var(--pguinda-900);
+  --breadcrumb-link: var(--pguinda-700);
+  --breadcrumb-link-hover: var(--pguinda-900);
+  --breadcrumb-current: var(--text-primary);
+  --breadcrumb-separator: var(--neutral-500);
+  --table-header-background: var(--neutral-300);
+  --table-row: var(--neutral-100);
+  --table-row-striped: var(--neutral-200);
+  --table-row-hover: var(--neutral-300);
+  --table-row-selected: var(--pguinda-100);
+  --table-border: var(--neutral-400);
+  --checkbox-border: var(--neutral-600);
+  --checkbox-checked: var(--pguinda-900);
+  --checkbox-selected: var(--pguinda-900);
+  --modal-header: var(--neutral-700);
+  --modal-header-foreground: var(--neutral-100);
+  --button-danger: var(--red-500);
+  --button-danger-hover: var(--red-400);
+  --button-danger-pressed: var(--red-600);
+  --button-danger-focus-ring: var(--red-300);
+
+  /* Spacing */
+  --spacing-0: 0;
+  --spacing-2: 2px;
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-48: 48px;
+  --spacing-64: 64px;
+  --spacing-80: 80px;
+  --spacing-96: 96px;
+  --spacing-128: 128px;
+  --spacing-160: 160px;
+
+  /* Radius */
+  --radius-0: 0;
+  --radius-4: 4px;
+  --radius-8: 8px;
+  --radius-12: 12px;
+  --radius-16: 16px;
+  --radius-24: 24px;
+  --radius-full: 80px;
+
+  /* Typography */
+  --font-family-heading: 'Patria', 'Noto Sans', Georgia, serif;
+  --font-family-body: 'Noto Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-size-h1: 40px;
+  --font-line-height-h1: 48px;
+  --font-size-h2: 32px;
+  --font-line-height-h2: 40px;
+  --font-size-h3: 28px;
+  --font-line-height-h3: 36px;
+  --font-size-h4: 24px;
+  --font-line-height-h4: 32px;
+  --font-size-h5: 20px;
+  --font-line-height-h5: 28px;
+  --font-size-h6: 18px;
+  --font-line-height-h6: 24px;
+  --font-size-body-lg: 18px;
+  --font-line-height-body-lg: 28px;
+  --font-size-body-md: 16px;
+  --font-line-height-body-md: 24px;
+  --font-size-body-sm: 14px;
+  --font-line-height-body-sm: 20px;
+  --font-size-label: 14px;
+  --font-line-height-label: 20px;
+  --font-size-caption: 12px;
+  --font-line-height-caption: 16px;
+  --font-size-button: 16px;
+  --font-line-height-button: 24px;
+
+  /* Layout */
+  --web-columns: 4;
+  --web-gutter: var(--spacing-16);
+  --web-margin: var(--spacing-16);
+  --web-max-width: 1280px;
+  --admin-columns: 4;
+  --admin-gutter: var(--spacing-16);
+  --admin-margin: var(--spacing-16);
+  --admin-sidebar: var(--spacing-0);
+  --admin-topbar: var(--spacing-64);
+  --breakpoint: 320px;
+
+  /* Elevation (neutral/800 = #161a1d) */
+  --elevation-scrim: rgb(22 26 29 / 48%);
+  --elevation-raised: 0px 1px 3px 0px rgb(22 26 29 / 12%), 0px 1px 2px 0px rgb(22 26 29 / 6%);
+  --elevation-overlay: 0px 4px 8px -2px rgb(22 26 29 / 12%), 0px 2px 4px -2px rgb(22 26 29 / 6%);
+  --elevation-floating: 0px 12px 16px -4px rgb(22 26 29 / 12%), 0px 4px 6px -2px rgb(22 26 29 / 6%);
+  --elevation-modal: 0px 20px 24px -4px rgb(22 26 29 / 12%), 0px 8px 8px -4px rgb(22 26 29 / 6%);
+}
+
+/* Tema verde: agrega data-uki-theme="verde" a <html> o a cualquier contenedor. Solo cambian los tokens semánticos. */
+[data-uki-theme='verde'] {
+  --brand-primary: var(--pverde-900);
+  --brand-secondary: var(--pverde-500);
+  --text-brand: var(--pverde-900);
+  --icon-primary: var(--pverde-600);
+  --border-brand: var(--pverde-900);
+  --background-brand: var(--pverde-900);
+  --sidebar-background: var(--pverde-900);
+  --sidebar-background-end: var(--pverde-600);
+  --sidebar-background-submenu: var(--pverde-950);
+  --sidebar-topbar: var(--pverde-700);
+  --sidebar-footer: var(--pverde-950);
+  --sidebar-item-hover: var(--pverde-700);
+  --sidebar-item-active: var(--pverde-400);
+  --sidebar-indicator: var(--pverde-100);
+  --sidebar-mobile-active: var(--pverde-500);
+  --button-primary: var(--pverde-900);
+  --button-primary-hover: var(--pverde-600);
+  --button-focus-ring: var(--pverde-300);
+  --button-tint: var(--pverde-100);
+  --button-tint-pressed: var(--pverde-200);
+  --button-ghost-pressed: var(--pverde-950);
+  --field-border-focus: var(--pverde-900);
+  --field-required: var(--pverde-600);
+  --header-background: var(--pverde-900);
+  --breadcrumb-link: var(--pverde-700);
+  --breadcrumb-link-hover: var(--pverde-900);
+  --table-row-selected: var(--pverde-100);
+  --checkbox-checked: var(--pverde-900);
+  --checkbox-selected: var(--pverde-900);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --font-size-h1: 48px;
+    --font-line-height-h1: 56px;
+    --font-size-h2: 40px;
+    --font-line-height-h2: 48px;
+    --font-size-h3: 32px;
+    --font-line-height-h3: 40px;
+    --font-size-h4: 28px;
+    --font-line-height-h4: 36px;
+    --font-size-h5: 24px;
+    --font-line-height-h5: 32px;
+    --font-size-h6: 20px;
+    --font-line-height-h6: 28px;
+    --web-columns: 8;
+    --web-gutter: var(--spacing-24);
+    --web-margin: var(--spacing-32);
+    --admin-columns: 8;
+    --admin-gutter: var(--spacing-24);
+    --admin-margin: var(--spacing-32);
+    --admin-sidebar: var(--spacing-64);
+    --breakpoint: 768px;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --font-size-h1: 56px;
+    --font-line-height-h1: 64px;
+    --font-size-h2: 48px;
+    --font-line-height-h2: 56px;
+    --font-size-h3: 40px;
+    --font-line-height-h3: 48px;
+    --font-size-h4: 32px;
+    --font-line-height-h4: 40px;
+    --font-size-h5: 28px;
+    --font-line-height-h5: 36px;
+    --font-size-h6: 24px;
+    --font-line-height-h6: 32px;
+    --web-columns: 12;
+    --web-margin: var(--spacing-80);
+    --admin-columns: 12;
+    --admin-sidebar: 256px;
+    --breakpoint: 1280px;
+  }
+}

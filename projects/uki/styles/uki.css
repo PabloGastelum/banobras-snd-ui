@@ -1,0 +1,4 @@
+/* Punto de entrada de @banobras/uki: agrégalo a "styles" en angular.json. */
+@import './fonts.css';
+@import './tokens.css';
+@import './base.css';
