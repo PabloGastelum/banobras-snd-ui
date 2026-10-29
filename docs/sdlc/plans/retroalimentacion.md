@@ -53,4 +53,13 @@ npm run e2e             # Playwright + axe con las rutas nuevas, ambos temas y m
 Además, CI en verde en el PR y revisión de la vista previa de Vercel contra Figma.
 
 ## Desviaciones durante la implementación
-Ninguna todavía.
+Todas del 29/10/2026.
+
+1. **Vista del aviso separada de la región.** El Toast visible es un componente interno (`uki-toast`, `toast-view.ts`) que usa la región. La documentación lo importa por ruta relativa para las vistas previas fijas (Átomos, Moléculas, Anatomía y Tipos); no se exporta en la API pública, donde Toast sigue siendo solo `UkiToastService`.
+2. **Altura del Toast según el texto.** Figma mide 98 px porque su descripción de ejemplo ocupa dos líneas; con una línea mide 78 px. La E2E compara 360 × 98 con el texto de Figma y, en los avisos reales, el ancho, la posición y los tokens.
+3. **Anatomía más chica que Figma.** El Alert de la anatomía mide 300 px en lugar de 480 px y el Toast no se amplía, para que quepan en el lienzo de la documentación.
+4. **Botón de cerrar sin hover.** Figma no define hover para el botón de cerrar de Alert y Toast; no cambia de fondo y el foco usa un borde de 2 px en el color del tipo.
+5. **Alto contraste de Windows.** Badge dibuja un borde y el punto de estado de Avatar usa `CanvasText` con `forced-colors: active`, porque ahí desaparecen los fondos.
+6. **Foto de ejemplo propia.** La documentación usa una ilustración SVG propia (`avatar-ejemplo.svg`), porque las ilustraciones de Figma no se pueden descargar como lector.
+7. **Capa de la región sin token.** UKI no tiene tokens de capa; la región de avisos usa `z-index: 1000`. Se revisa con Modal (entrega 4).
+8. **Rama desde `main`.** El PR #1 (entrega 2) se fusionó antes de empezar, así que `feat/retroalimentacion` sale de `main` y el PR va contra `main`.
