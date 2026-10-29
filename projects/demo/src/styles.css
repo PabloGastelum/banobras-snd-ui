@@ -1,0 +1,312 @@
+/*
+ * Documentación de UKI con la distribución de las páginas de Figma: barra lateral de 280 px y contenedor con secciones
+ * (encabezado, descripción, divisor) y tarjetas grises. Los estilos de UKI llegan desde projects/uki/styles/uki.css.
+ */
+
+:root {
+  --doc-tarjeta: var(--neutral-300);
+  --doc-borde: var(--border-low-contrast);
+  --doc-texto-suave: var(--text-secondary);
+  --doc-radio: var(--radius-16);
+
+  accent-color: var(--brand-primary);
+  caret-color: var(--brand-primary);
+  scrollbar-color: var(--neutral-500) transparent;
+}
+
+body {
+  background: var(--background-surface);
+}
+
+/* Superficies del navegador con la paleta de UKI. */
+::selection {
+  background: var(--button-tint-pressed);
+  color: var(--text-primary);
+}
+
+a {
+  text-underline-offset: 3px;
+}
+
+code,
+.doc-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.doc-oculto {
+  position: absolute;
+  margin: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+h1[id],
+h2[id] {
+  scroll-margin-top: 80px;
+}
+
+/* Columna de lectura */
+.doc-pagina {
+  display: grid;
+  gap: var(--spacing-80);
+  padding: var(--spacing-48) 0 var(--spacing-64);
+}
+
+@media (max-width: 767.98px) {
+  .doc-pagina {
+    padding: var(--spacing-32) 0 var(--spacing-48);
+    gap: var(--spacing-48);
+  }
+}
+
+/* Sección: encabezado + contenido */
+.doc-seccion {
+  display: grid;
+  gap: var(--spacing-24);
+  min-width: 0;
+}
+
+.doc-encabezado {
+  display: grid;
+  gap: var(--spacing-8);
+  padding-bottom: var(--spacing-16);
+  border-bottom: 1px solid var(--doc-borde);
+}
+
+.doc-titulo {
+  margin: 0;
+  font-family: var(--font-family-body);
+  font-size: 2.5rem;
+  line-height: 1.2;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.doc-descripcion {
+  margin: 0;
+  max-width: 72ch;
+  font-size: var(--font-size-body-sm);
+  line-height: var(--font-line-height-body-sm);
+  color: var(--doc-texto-suave);
+}
+
+.doc-subtitulo {
+  margin: var(--spacing-8) 0 0;
+  font-size: 1.25rem;
+  line-height: 1.4;
+  font-weight: var(--font-weight-regular);
+  color: var(--text-primary);
+}
+
+.doc-overline {
+  margin: 0;
+  font-size: 0.6875rem;
+  line-height: 1rem;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Tarjetas */
+.doc-tarjetas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-16);
+}
+
+.doc-tarjeta {
+  display: grid;
+  align-content: start;
+  gap: var(--spacing-8);
+  min-width: 0;
+  padding: var(--spacing-24);
+  border-radius: var(--doc-radio);
+  background: var(--doc-tarjeta);
+}
+
+.doc-tarjeta h3,
+.doc-tarjeta h4 {
+  margin: 0;
+  font-size: 1.5rem;
+  line-height: 1.3;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: -0.01em;
+}
+
+.doc-tarjeta p {
+  margin: 0;
+  font-size: var(--font-size-caption);
+  line-height: 1.5;
+  color: var(--doc-texto-suave);
+}
+
+.doc-tarjeta .doc-tokens {
+  font-size: 0.6875rem;
+  color: var(--text-primary);
+}
+
+/* Área donde vive el componente dentro de una tarjeta */
+.doc-visual {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-16);
+  min-height: 96px;
+  margin-bottom: var(--spacing-8);
+  padding: var(--spacing-24);
+  border-radius: var(--radius-12);
+  background: var(--background-surface);
+}
+
+/* Matriz de átomos: filas por variante y columnas por estado */
+.doc-matriz {
+  overflow-x: auto;
+  padding: var(--spacing-24);
+  border: 1px dashed var(--button-focus-ring);
+  border-radius: var(--doc-radio);
+}
+
+.doc-matriz table {
+  border-collapse: separate;
+  border-spacing: var(--spacing-24) var(--spacing-16);
+  margin: calc(var(--spacing-16) * -1) calc(var(--spacing-24) * -1);
+}
+
+.doc-matriz caption {
+  padding-left: var(--spacing-24);
+  text-align: left;
+}
+
+.doc-matriz th {
+  font-size: 0.6875rem;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: left;
+  color: var(--doc-texto-suave);
+  white-space: nowrap;
+}
+
+/* Tabla de estados y tokens */
+.doc-tabla-contenedor:focus-visible,
+.doc-matriz:focus-visible {
+  outline: 2px solid var(--border-brand);
+  outline-offset: 2px;
+}
+
+.doc-tabla-contenedor {
+  overflow-x: auto;
+  border-radius: var(--doc-radio);
+  background: var(--doc-tarjeta);
+}
+
+.doc-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-caption);
+}
+
+.doc-tabla caption {
+  padding: var(--spacing-16) var(--spacing-24) 0;
+  text-align: left;
+  color: var(--doc-texto-suave);
+}
+
+.doc-tabla th,
+.doc-tabla td {
+  padding: var(--spacing-16) var(--spacing-24);
+  border-bottom: 1px solid var(--doc-borde);
+  text-align: left;
+  vertical-align: top;
+}
+
+.doc-tabla tr:last-child > * {
+  border-bottom: 0;
+}
+
+.doc-tabla thead th {
+  font-size: 0.6875rem;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--doc-texto-suave);
+}
+
+.doc-tabla tbody th {
+  font-weight: var(--font-weight-semibold);
+  white-space: nowrap;
+}
+
+.doc-tabla tbody th small {
+  display: block;
+  font-weight: var(--font-weight-regular);
+  color: var(--doc-texto-suave);
+}
+
+/* Token con muestra de color */
+.doc-token {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  margin: 0 0 var(--spacing-4);
+  white-space: nowrap;
+}
+
+.doc-token:last-child {
+  margin-bottom: 0;
+}
+
+.doc-token__muestra {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--doc-borde);
+  border-radius: var(--radius-4);
+}
+
+.doc-token__parte {
+  min-width: 3.5rem;
+  color: var(--doc-texto-suave);
+}
+
+.doc-flujo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-8);
+  font-size: var(--font-size-body-sm);
+}
+
+.doc-flujo span[aria-hidden] {
+  color: var(--doc-texto-suave);
+}
+
+.doc-pildora {
+  padding: var(--spacing-4) var(--spacing-12);
+  border-radius: var(--radius-full);
+  background: var(--background-surface);
+  font-weight: var(--font-weight-medium);
+}
+
+.doc-pildora--apagada {
+  color: var(--doc-texto-suave);
+}
+
+.doc-codigo {
+  margin: 0;
+  overflow-x: auto;
+  padding: var(--spacing-16);
+  border-radius: var(--radius-12);
+  background: var(--neutral-800);
+  color: var(--neutral-200);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: var(--font-size-caption);
+  line-height: 1.6;
+  white-space: pre;
+}

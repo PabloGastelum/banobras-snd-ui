@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Marca de UKI: círculo y cuarto de círculo de la portada. Fondo sidebar/background y cuarto button/focus-ring del tema verde. -->
+  <rect width="32" height="32" rx="7" fill="#002F2A"/>
+  <circle cx="9.5" cy="16" r="5.5" fill="#FFFFFF"/>
+  <path d="M17 21.5A11 11 0 0 1 28 10.5V21.5Z" fill="#82A4A0"/>
+</svg>
