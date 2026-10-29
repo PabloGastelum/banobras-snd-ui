@@ -39,7 +39,7 @@ interface Marcador {
   template: `
     <div class="tarjeta lienzo-tarjeta">
       <div class="lienzo" #lienzo>
-        <div class="ampliado" aria-hidden="true" inert><ng-content /></div>
+        <div class="ampliado" aria-hidden="true" inert [style.transform]="'scale(' + escala() + ')'"><ng-content /></div>
         @for (m of marcadores(); track m.n) {
           <span
             class="linea"
@@ -88,13 +88,12 @@ interface Marcador {
       position: relative;
       display: grid;
       place-items: center;
-      min-height: 320px;
+      min-height: 360px;
       overflow: hidden;
       border-radius: var(--radius-12);
       background: var(--background-surface);
     }
     .ampliado {
-      transform: scale(2);
       pointer-events: none;
     }
     .linea {
@@ -158,6 +157,8 @@ interface Marcador {
 })
 export class DocAnatomia {
   readonly partes = input.required<Parte[]>();
+  /** Cuánto se amplía el componente; los campos anchos usan menos para caber en el lienzo. */
+  readonly escala = input(2);
   protected readonly marcadores = signal<Marcador[]>([]);
   private readonly lienzo = viewChild.required<ElementRef<HTMLElement>>('lienzo');
 
@@ -173,12 +174,15 @@ export class DocAnatomia {
             const el = lienzo.querySelector(parte.selector);
             if (!el) return [];
             const r = el.getBoundingClientRect();
+            const y = (parte.lado === 'arriba' ? r.top : r.bottom) - base.top;
+            // La línea se acorta si hace falta para que el número quede dentro del lienzo.
+            const espacio = parte.lado === 'arriba' ? y - 20 : base.height - y - 20;
             return [
               {
                 n: i + 1,
                 x: (parte.alinear === 'inicio' ? r.left + 6 : r.left + r.width / 2) - base.left,
-                y: (parte.lado === 'arriba' ? r.top : r.bottom) - base.top,
-                largo,
+                y,
+                largo: Math.max(12, Math.min(largo, espacio)),
                 lado: parte.lado,
               },
             ];

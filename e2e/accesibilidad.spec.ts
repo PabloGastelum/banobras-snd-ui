@@ -11,7 +11,11 @@ const PAGINAS = [
   'tipografia',
   'button',
   'checkbox',
+  'search',
+  'select',
   'spinner',
+  'text-area',
+  'text-field',
   'muestra/grupo-botones',
 ];
 

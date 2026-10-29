@@ -33,7 +33,7 @@ test('el checkbox marcado usa checkbox/selected del tema verde', async ({ page }
   await expect(page.locator('[data-prueba="checked"] input')).toHaveCSS('background-color', 'rgb(0, 47, 42)');
 });
 
-for (const pagina of ['colores', 'button', 'checkbox', 'spinner']) {
+for (const pagina of ['colores', 'button', 'checkbox', 'spinner', 'text-field', 'select', 'search']) {
   test(`axe sin violaciones en /${pagina} con el tema verde`, async ({ page }) => {
     await page.goto(pagina);
     await page.getByRole('radio', { name: 'Verde' }).check();
@@ -44,3 +44,11 @@ for (const pagina of ['colores', 'button', 'checkbox', 'spinner']) {
     expect(resultado.violations.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).join(', ')}`)).toEqual([]);
   });
 }
+
+test('los campos usan field/border-focus del tema verde', async ({ page }) => {
+  await page.goto('text-field');
+  await page.getByRole('radio', { name: 'Verde' }).check();
+  const campo = page.getByLabel('Default');
+  await campo.focus();
+  await expect(campo).toHaveCSS('border-top-color', 'rgb(0, 47, 42)');
+});

@@ -91,13 +91,29 @@ let contador = 0;
     </div>
   `,
   styles: `
+    /* Sin overflow: hidden para no recortar listas desplegables (Select); las esquinas se redondean por partes. */
     :host {
       display: grid;
       min-width: 0;
-      overflow: hidden;
       border: 1px solid var(--border-low-contrast);
       border-radius: var(--radius-16);
       background: var(--background-surface);
+    }
+    .ejemplo__vista {
+      border-radius: 15px 15px 0 0;
+    }
+    .ejemplo__barra {
+      border-radius: 0 0 15px 15px;
+    }
+    :host:has(.ejemplo__codigo:not([hidden])) .ejemplo__barra {
+      border-radius: 0;
+    }
+    .ejemplo__codigo {
+      overflow: hidden;
+      border-radius: 0 0 15px 15px;
+    }
+    .ejemplo__barra--sola {
+      border-radius: 15px 15px 0 0;
     }
     .ejemplo__vista {
       display: flex;

@@ -35,7 +35,11 @@ const GRUPOS: { titulo: string; enlaces: Enlace[] }[] = [
     enlaces: [
       { ruta: '/button', texto: 'Button', figma: '195-3254' },
       { ruta: '/checkbox', texto: 'Checkbox', figma: '359-2693' },
+      { ruta: '/search', texto: 'Search', figma: '375-59' },
+      { ruta: '/select', texto: 'Select', figma: '445-274' },
       { ruta: '/spinner', texto: 'Spinner', figma: '292-2961' },
+      { ruta: '/text-area', texto: 'Text area', figma: '445-931' },
+      { ruta: '/text-field', texto: 'Text field', figma: '210-140' },
     ],
   },
 ];
