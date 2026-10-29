@@ -13,6 +13,8 @@ Un solo paquete para que Portal FONADIN, SISSARR, SAAIPB, SISEC y SIVARMER se ve
 [![WCAG 2.1 AA](https://img.shields.io/badge/WCAG-2.1%20AA-086308)](#accesibilidad)
 [![Versión 0.1.0](https://img.shields.io/badge/versi%C3%B3n-0.1.0-434343)](projects/uki/package.json)
 
+**[Ver la documentación en vivo →](https://banobras-uki.vercel.app)**
+
 [Inicio rápido](#inicio-rápido) · [Componentes](#qué-incluye) · [Temas](#temas) · [Documentación](#documentación) · [Desarrollo](#desarrollo)
 
 <br>
@@ -123,7 +125,7 @@ Solo cambian los 29 tokens semánticos que dependen de la marca, y todos los com
 
 ## Documentación
 
-`npm start` levanta la documentación en <http://localhost:4320>, con la distribución de las páginas de UKI en Figma.
+La documentación está publicada en **<https://banobras-uki.vercel.app>** (despliegue de prueba en Vercel; se actualiza con cada push a `main`). En local, `npm start` la levanta en <http://localhost:4320>. Sigue la distribución de las páginas de UKI en Figma.
 
 | | |
 |---|---|
