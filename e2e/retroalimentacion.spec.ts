@@ -148,6 +148,14 @@ test.describe('Toast', () => {
     expect([fijo.width, fijo.height]).toEqual([360, 98]);
   });
 
+  test('las vistas previas de la tabla Tipos miden 360 px y no se aplastan', async ({ page }) => {
+    for (const tipo of Object.keys(TIPOS)) {
+      const caja = (await page.locator(`[data-prueba="toast-tabla-${tipo}"]`).boundingBox())!;
+      expect(caja.width, tipo).toBe(360);
+      expect(caja.height, tipo).toBeLessThanOrEqual(98);
+    }
+  });
+
   test('se anuncia en la región viva del tipo y no mueve el foco', async ({ page }) => {
     const boton = page.locator('[data-prueba="mostrar-error"]');
     await boton.click();

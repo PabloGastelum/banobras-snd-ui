@@ -146,7 +146,12 @@ const COMPORTAMIENTO = [
                 <tr>
                   <th scope="row">{{ t.nombre }}<small>{{ mensajes[t.tipo].uso }}</small></th>
                   <td>
-                    <uki-toast [type]="t.tipo" [title]="mensajes[t.tipo].title" [description]="mensajes[t.tipo].description" />
+                    <uki-toast
+                      [type]="t.tipo"
+                      [title]="mensajes[t.tipo].title"
+                      [description]="mensajes[t.tipo].description"
+                      [attr.data-prueba]="'toast-tabla-' + t.tipo"
+                    />
                   </td>
                   <td><demo-token [nombre]="t.primerPlano" nota="1 px" /></td>
                   <td><demo-token [nombre]="t.fondo" /></td>
@@ -198,9 +203,13 @@ const COMPORTAMIENTO = [
       min-width: 0;
     }
     /* 360 px como en Figma, sin pasar del ancho de la celda en móvil. */
-    .rejilla uki-toast,
-    td uki-toast {
+    .rejilla uki-toast {
       width: min(360px, 100%);
+    }
+    /* En la tabla el ancho de la celda depende del contenido: el aviso fija sus 360 px y la tabla se desplaza en móvil. */
+    td uki-toast {
+      width: 360px;
+      max-width: none;
     }
   `,
 })
