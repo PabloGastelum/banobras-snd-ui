@@ -1,0 +1,61 @@
+{
+  "name": "banobras-uki-workspace",
+  "version": "0.0.0",
+  "scripts": {
+    "start": "ng serve demo --port 4320",
+    "test": "ng test uki --watch=false",
+    "build:uki": "ng build uki",
+    "build:demo": "ng build demo",
+    "lint": "eslint projects e2e scripts playwright.config.ts --max-warnings=0",
+    "typecheck": "tsc --noEmit --inlineSources false -p projects/uki/tsconfig.lib.json && tsc --noEmit -p projects/uki/tsconfig.spec.json && tsc --noEmit -p projects/demo/tsconfig.app.json",
+    "e2e": "playwright test",
+    "verify:consumo": "bash scripts/verify-consumo.sh",
+    "tokens": "node scripts/generar-tokens.mjs",
+    "tokens:check": "node scripts/generar-tokens.mjs --check",
+    "pack:uki": "ng build uki && cd dist/uki && npm pack"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true,
+    "overrides": [
+      {
+        "files": "*.html",
+        "options": {
+          "parser": "angular"
+        }
+      }
+    ]
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/common": "20.3.34",
+    "@angular/compiler": "20.3.34",
+    "@angular/core": "20.3.34",
+    "@angular/forms": "20.3.34",
+    "@angular/platform-browser": "20.3.34",
+    "@angular/router": "20.3.34",
+    "rxjs": "7.8.2",
+    "tslib": "2.8.1"
+  },
+  "devDependencies": {
+    "@angular/build": "20.3.41",
+    "@angular/cli": "20.3.41",
+    "@angular/compiler-cli": "20.3.34",
+    "@axe-core/playwright": "4.14.0",
+    "@eslint/js": "9.39.5",
+    "@playwright/test": "1.64.1",
+    "angular-eslint": "20.7.0",
+    "eslint": "9.39.5",
+    "jsdom": "29.1.1",
+    "ng-packagr": "20.3.2",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.72.0",
+    "vitest": "3.2.7"
+  },
+  "overrides": {
+    "tinypool": "2.2.0"
+  },
+  "engines": {
+    "node": ">=24.11.1 <25"
+  }
+}
