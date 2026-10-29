@@ -1,0 +1,23 @@
+/* Orden en el DOM: Ghost → Secondary → Primary. */
+.uki-button-group {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: var(--spacing-12);
+}
+
+.uki-button-group > .uki-button {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .uki-button-group {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: var(--spacing-16);
+  }
+
+  .uki-button-group > .uki-button {
+    width: auto;
+  }
+}

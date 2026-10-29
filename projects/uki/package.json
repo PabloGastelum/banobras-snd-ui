@@ -1,0 +1,31 @@
+{
+  "name": "@banobras/uki",
+  "version": "0.1.0",
+  "description": "Componentes Angular del sistema de diseño UKI de Banobras (tema guinda).",
+  "license": "UNLICENSED",
+  "private": false,
+  "peerDependencies": {
+    "@angular/common": ">=20.0.0 <23.0.0",
+    "@angular/core": ">=20.0.0 <23.0.0",
+    "@angular/forms": ">=20.0.0 <23.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": [
+    "*.css"
+  ],
+  "uki": {
+    "figmaFile": "6fzZVvIfv44dGFePtb5F9n",
+    "figmaVersion": "0.5.0",
+    "theme": "guinda"
+  },
+  "exports": {
+    "./styles/*": {
+      "default": "./styles/*"
+    },
+    "./fonts/*": {
+      "default": "./fonts/*"
+    }
+  }
+}

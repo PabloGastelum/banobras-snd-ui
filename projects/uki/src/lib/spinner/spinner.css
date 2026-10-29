@@ -1,0 +1,38 @@
+/* Spinner de UKI: una vuelta por segundo, lineal e infinita (Spinner › Steps). */
+.uki-spinner {
+  display: inline-flex;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  color: var(--icon-default);
+}
+
+.uki-spinner--36 {
+  width: 36px;
+  height: 36px;
+}
+
+.uki-spinner--48 {
+  width: 48px;
+  height: 48px;
+}
+
+.uki-spinner__figure {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+  animation: uki-spinner-giro 1s linear infinite;
+}
+
+/* Con movimiento reducido avanza en 12 pasos de 30°, como las variantes Step 01–12 de Figma. */
+@media (prefers-reduced-motion: reduce) {
+  .uki-spinner__figure {
+    animation-timing-function: steps(12, end);
+  }
+}
+
+@keyframes uki-spinner-giro {
+  to {
+    transform: rotate(360deg);
+  }
+}

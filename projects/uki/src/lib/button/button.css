@@ -1,0 +1,161 @@
+/*
+ * Botón de UKI (Button › Anatomy y States). Cada variante define sus colores en propiedades locales (--_uki-btn-*)
+ * y los estados solo cambian esas propiedades.
+ */
+.uki-button {
+  --_uki-btn-bg: var(--button-primary);
+  --_uki-btn-fg: var(--text-inverse);
+  --_uki-btn-border: transparent;
+  --_uki-btn-ring: var(--button-focus-ring);
+  --_uki-btn-ring-width: 2px;
+
+  position: relative;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-8);
+  min-height: 48px;
+  margin: 0;
+  /* El borde de 1 px va por dentro, como en Figma: se descuenta del relleno vertical para medir 48 px. */
+  padding: calc(var(--spacing-12) - 1px) var(--spacing-24);
+  border: 1px solid var(--_uki-btn-border);
+  border-radius: var(--radius-8);
+  background-color: var(--_uki-btn-bg);
+  color: var(--_uki-btn-fg);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-button);
+  line-height: var(--font-line-height-button);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    background-color 120ms ease-out,
+    color 120ms ease-out,
+    border-color 120ms ease-out;
+}
+
+.uki-button--large {
+  min-height: 64px;
+  padding-block: calc(var(--spacing-20) - 1px);
+}
+
+.uki-button [ukiButtonLeading],
+.uki-button [ukiButtonTrailing] {
+  flex: none;
+  width: 24px;
+  height: 24px;
+}
+
+/* Variantes: Default */
+.uki-button--secondary {
+  --_uki-btn-bg: var(--background-surface);
+  --_uki-btn-fg: var(--text-brand);
+  --_uki-btn-border: var(--border-brand);
+  --_uki-btn-ring: var(--border-brand);
+  --_uki-btn-ring-width: 3px;
+}
+
+.uki-button--ghost {
+  --_uki-btn-bg: transparent;
+  --_uki-btn-fg: var(--text-brand);
+  --_uki-btn-ring: var(--border-brand);
+  padding-inline: var(--spacing-8);
+}
+
+.uki-button--danger {
+  --_uki-btn-bg: var(--button-danger);
+  --_uki-btn-ring: var(--button-danger-focus-ring);
+}
+
+/* Hover: solo con puntero; nunca en Disabled ni Loading. */
+@media (hover: hover) {
+  .uki-button--primary:hover:not(.uki-button--disabled, .uki-button--loading) {
+    --_uki-btn-bg: var(--button-primary-hover);
+  }
+
+  .uki-button--secondary:hover:not(.uki-button--disabled, .uki-button--loading) {
+    --_uki-btn-bg: var(--button-tint);
+  }
+
+  .uki-button--ghost:hover:not(.uki-button--disabled) {
+    --_uki-btn-bg: var(--button-tint);
+    --_uki-btn-fg: var(--button-primary-hover);
+  }
+
+  .uki-button--danger:hover:not(.uki-button--disabled, .uki-button--loading) {
+    --_uki-btn-bg: var(--button-danger-hover);
+  }
+}
+
+/* Focus: borde exterior que no depende solo del color. */
+.uki-button:focus-visible {
+  outline: var(--_uki-btn-ring-width) solid var(--_uki-btn-ring);
+  outline-offset: 0;
+}
+
+.uki-button--ghost:focus-visible {
+  --_uki-btn-bg: var(--button-tint);
+  --_uki-btn-fg: var(--text-brand);
+}
+
+/* Pressed */
+.uki-button--primary:active:not(.uki-button--disabled, .uki-button--loading) {
+  --_uki-btn-bg: var(--button-tint);
+  --_uki-btn-fg: var(--text-primary);
+}
+
+.uki-button--secondary:active:not(.uki-button--disabled, .uki-button--loading) {
+  --_uki-btn-bg: var(--button-tint-pressed);
+  --_uki-btn-fg: var(--text-brand);
+}
+
+.uki-button--ghost:active:not(.uki-button--disabled) {
+  --_uki-btn-bg: var(--button-tint-pressed);
+  --_uki-btn-fg: var(--button-ghost-pressed);
+}
+
+.uki-button--danger:active:not(.uki-button--disabled, .uki-button--loading) {
+  --_uki-btn-bg: var(--button-danger-pressed);
+}
+
+/* Disabled */
+.uki-button--disabled {
+  --_uki-btn-bg: var(--button-disabled-background);
+  --_uki-btn-fg: var(--button-disabled-foreground);
+  --_uki-btn-border: transparent;
+  cursor: not-allowed;
+}
+
+.uki-button--secondary.uki-button--disabled {
+  --_uki-btn-bg: var(--background-surface);
+  --_uki-btn-fg: var(--button-disabled-border);
+  --_uki-btn-border: var(--button-disabled-border);
+}
+
+.uki-button--ghost.uki-button--disabled {
+  --_uki-btn-bg: transparent;
+}
+
+/* Loading: el ancho se conserva y el spinner ocupa el centro. */
+.uki-button--loading {
+  cursor: progress;
+}
+
+/* opacity y no visibility: el texto se oculta a la vista pero sigue siendo el nombre accesible del botón. */
+.uki-button--loading > :not(.uki-button__spinner) {
+  opacity: 0;
+}
+
+/* Doble clase para ganarle al color por omisión del spinner (--icon-default) sin depender del orden de carga. */
+.uki-button .uki-button__spinner {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  color: inherit;
+}

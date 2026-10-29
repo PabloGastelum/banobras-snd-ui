@@ -1,0 +1,104 @@
+/* Checkbox de UKI (Checkbox › Anatomy y States). Área táctil de 40 px, caja de 20 px e ícono de 16 px. */
+.uki-checkbox {
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.uki-checkbox__control {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  cursor: pointer;
+}
+
+.uki-checkbox__target {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  transition: background-color 120ms ease-out;
+}
+
+.uki-checkbox__input {
+  box-sizing: border-box;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  border: 2px solid var(--checkbox-border);
+  border-radius: var(--radius-4);
+  background-color: var(--background-surface);
+  appearance: none;
+  cursor: inherit;
+}
+
+.uki-checkbox__input:checked,
+.uki-checkbox__input:indeterminate {
+  border-color: var(--checkbox-selected);
+  background-color: var(--checkbox-selected);
+}
+
+.uki-checkbox__input:focus-visible {
+  outline: none;
+}
+
+.uki-checkbox__icon {
+  position: absolute;
+  inset: 0;
+  width: 16px;
+  height: 16px;
+  margin: auto;
+  fill: none;
+  stroke: var(--icon-inverse);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+
+.uki-checkbox__label {
+  color: var(--text-primary);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-body-sm);
+  line-height: var(--font-line-height-body-sm);
+  font-weight: var(--font-weight-regular);
+}
+
+.uki-checkbox__label:empty {
+  display: none;
+}
+
+/* Hover: tinte en el área táctil. */
+@media (hover: hover) {
+  .uki-checkbox:not(.uki-checkbox--disabled) .uki-checkbox__control:hover .uki-checkbox__target {
+    background-color: var(--button-tint);
+  }
+}
+
+/* Focus: anillo al 24 % en el área táctil. */
+.uki-checkbox__target:has(.uki-checkbox__input:focus-visible) {
+  background-color: color-mix(in srgb, var(--button-focus-ring) 24%, transparent);
+}
+
+/* Disabled */
+.uki-checkbox--disabled .uki-checkbox__control {
+  cursor: not-allowed;
+}
+
+.uki-checkbox--disabled .uki-checkbox__input {
+  border-color: var(--border-low-contrast);
+  background-color: var(--background-page);
+}
+
+.uki-checkbox--disabled .uki-checkbox__input:checked,
+.uki-checkbox--disabled .uki-checkbox__input:indeterminate {
+  border-color: var(--text-disabled);
+  background-color: var(--text-disabled);
+}
+
+.uki-checkbox--disabled .uki-checkbox__label {
+  color: var(--text-disabled);
+}
