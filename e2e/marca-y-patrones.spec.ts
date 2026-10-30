@@ -178,6 +178,18 @@ test.describe('Sidebar', () => {
     await sinViolaciones(page);
   });
 
+  test('los destinos de ejemplo se quedan en la página: un subelemento lleva a su sección', async ({ page }) => {
+    const ejemplo = page.locator('[data-prueba="sidebar-expandida"]');
+    await ejemplo.getByRole('button', { name: 'Administración' }).click();
+    await ejemplo.getByRole('link', { name: 'Usuarios' }).click();
+    await expect(page).toHaveURL(/\/sidebar$/);
+    await expect(page.getByRole('heading', { level: 2, name: 'Estados' })).toBeInViewport();
+    await page.locator('[data-prueba="sidebar-colapsada"]').getByRole('button', { name: 'Administración' }).click();
+    await page.getByRole('link', { name: 'Macroprocesos' }).click();
+    await expect(page).toHaveURL(/\/sidebar$/);
+    await expect(page.getByRole('heading', { level: 2, name: 'Comportamiento responsivo' })).toBeInViewport();
+  });
+
   test('el botón de contraer cambia a 56 px y anuncia su estado', async ({ page }) => {
     const ejemplo = page.locator('[data-prueba="sidebar-expandida"]');
     const toggle = ejemplo.getByRole('button', { name: 'Contraer menú' });
@@ -304,6 +316,9 @@ test.describe('Pantalla de administración', () => {
     await expect(page.getByRole('main')).toHaveCount(1);
     await expect(page.getByRole('contentinfo')).toHaveCount(1);
     await expect(page.getByRole('navigation', { name: 'Ruta de navegación' })).toHaveCount(1);
+    // Los destinos de ejemplo son anclas: no salen de la muestra.
+    await page.getByRole('navigation', { name: 'Menú principal' }).getByRole('link', { name: 'Documentos' }).click();
+    await expect(page).toHaveURL(/\/muestra\/administracion$/);
     // La Sidebar queda fija al alto de la ventana mientras la página se desplaza.
     const nav = page.getByRole('navigation', { name: 'Menú principal' });
     expect(await alto(nav)).toBe(900);
