@@ -1,0 +1,94 @@
+/*
+ * Auth de UKI: 636 px como máximo, 832 px de alto mínimo, background/surface, relleno spacing-80 / spacing-40 y
+ * columnas con space-between (logotipo arriba, pie abajo). Contenido central de 400 px con espacio spacing-40.
+ * Figma usa variables ajenas a UKI (color-background, color-text, Neutral/gray-500): se usan los tokens semánticos (D19).
+ */
+.uki-auth {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-40);
+  width: 100%;
+  max-width: 636px;
+  min-height: 832px;
+  padding: var(--spacing-80) var(--spacing-40);
+  background: var(--background-surface);
+  color: var(--text-primary);
+  font-family: var(--font-family-body);
+}
+
+.uki-auth__marca {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.uki-auth__cuerpo {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  gap: var(--spacing-40);
+  width: 100%;
+  max-width: 400px;
+}
+
+.uki-auth__encabezado {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+}
+
+.uki-auth__titulo {
+  margin: 0;
+  color: var(--text-primary);
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--font-line-height-h3);
+  letter-spacing: -0.01em;
+}
+
+.uki-auth__sistema {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--font-size-body-sm);
+  line-height: var(--font-line-height-body-sm);
+}
+
+/* Formulario proyectado (Form e Inputs de Figma): campos a spacing-16 y el botón a lo ancho, spacing-40 debajo. */
+.uki-auth__cuerpo > form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+}
+
+.uki-auth__cuerpo > form > .uki-button {
+  width: 100%;
+  margin-top: var(--spacing-24);
+}
+
+.uki-auth__pie {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--font-size-caption);
+  line-height: var(--font-line-height-caption);
+  text-align: center;
+}
+
+.uki-auth__pie strong {
+  font-weight: var(--font-weight-semibold);
+}
+
+@media (max-width: 767.98px) {
+  .uki-auth {
+    max-width: none;
+    min-height: 100dvh;
+    padding: var(--spacing-24) var(--spacing-16);
+  }
+
+  .uki-auth__logo {
+    --uki-logo-alto: 32px;
+  }
+}

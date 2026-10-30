@@ -24,6 +24,16 @@ const PAGINAS = [
   'text-field',
   'toast',
   'muestra/grupo-botones',
+  'logotipos',
+  'auth',
+  'footer',
+  'header',
+  'hero',
+  'sidebar',
+  'pantalla-de-acceso',
+  'pantalla-de-administracion',
+  'muestra/acceso',
+  'muestra/administracion',
 ];
 
 for (const pagina of PAGINAS) {

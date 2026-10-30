@@ -6,10 +6,13 @@ export interface OpcionesCapa {
   ancho?: 'ancla' | 'contenido';
   /** Distancia en px entre el ancla y el panel. */
   separacion?: number;
-  /** Lado preferido; si no cabe y del otro lado hay más espacio, se voltea. */
-  lado?: 'abajo' | 'arriba';
-  /** Alineación horizontal con el ancla. */
-  alinear?: 'inicio' | 'centro';
+  /**
+   * Lado preferido; si no cabe y del otro lado hay más espacio, se voltea. `derecha` pone el panel junto al ancla
+   * (panel flotante de la Sidebar colapsada) alineado con su borde superior.
+   */
+  lado?: 'abajo' | 'arriba' | 'derecha';
+  /** Alineación horizontal con el ancla (arriba o abajo): `fin` junta los bordes derechos (menú de usuario). */
+  alinear?: 'inicio' | 'centro' | 'fin';
 }
 
 type ElementoConPopover = HTMLElement & { showPopover?: () => void; hidePopover?: () => void };
@@ -89,6 +92,10 @@ export class UkiCapa {
 
     const alto = this.panel.offsetHeight;
     const anchoPanel = ancho === 'ancla' ? a.width : this.panel.offsetWidth;
+    if (lado === 'derecha') {
+      this.colocarAlLado(a, alto, anchoPanel, altoVentana, anchoVentana);
+      return;
+    }
     const espacioAbajo = altoVentana - a.bottom - separacion;
     const espacioArriba = a.top - separacion;
     const cabeAbajo = alto <= espacioAbajo;
@@ -96,12 +103,24 @@ export class UkiCapa {
     const abajo = lado === 'abajo' ? cabeAbajo || espacioAbajo >= espacioArriba : !(cabeArriba || espacioArriba >= espacioAbajo);
 
     const top = abajo ? a.bottom + separacion : a.top - separacion - alto;
-    let left = alinear === 'centro' ? a.left + a.width / 2 - anchoPanel / 2 : a.left;
+    let left = alinear === 'centro' ? a.left + a.width / 2 - anchoPanel / 2 : alinear === 'fin' ? a.right - anchoPanel : a.left;
     left = Math.min(left, anchoVentana - anchoPanel - MARGEN_VENTANA);
     left = Math.max(left, MARGEN_VENTANA);
 
     estilo.setProperty('top', `${Math.round(top)}px`);
     estilo.setProperty('left', `${Math.round(left)}px`);
     this.panel.dataset['lado'] = abajo ? 'abajo' : 'arriba';
+  }
+
+  /** A la derecha del ancla y alineado con su borde superior; se sube si no cabe abajo y se voltea si no cabe a la derecha. */
+  private colocarAlLado(a: DOMRect, alto: number, anchoPanel: number, altoVentana: number, anchoVentana: number): void {
+    const { separacion } = this.opciones;
+    const cabeDerecha = a.right + separacion + anchoPanel <= anchoVentana - MARGEN_VENTANA;
+    const left = cabeDerecha ? a.right + separacion : Math.max(a.left - separacion - anchoPanel, MARGEN_VENTANA);
+    const top = Math.max(Math.min(a.top, altoVentana - alto - MARGEN_VENTANA), MARGEN_VENTANA);
+    const estilo = this.panel.style;
+    estilo.setProperty('top', `${Math.round(top)}px`);
+    estilo.setProperty('left', `${Math.round(left)}px`);
+    this.panel.dataset['lado'] = cabeDerecha ? 'derecha' : 'izquierda';
   }
 }

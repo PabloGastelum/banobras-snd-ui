@@ -34,3 +34,17 @@ export {
   type UkiTableSort,
 } from './lib/table/table';
 export { UkiTableBulkActions, UkiTableCell, UkiTableToolbar, type UkiTableCellContext } from './lib/table/table.directivas';
+export {
+  UkiLogoBanobras,
+  UkiLogoBanobrasIcon,
+  UkiLogoFonadin,
+  UkiLogoGobmx,
+  UkiLogoHacienda,
+  type UkiLogoSize,
+} from './lib/marca/logo';
+export * from './lib/header/header';
+export * from './lib/header/user-menu';
+export * from './lib/footer/footer';
+export * from './lib/sidebar/sidebar';
+export * from './lib/auth/auth';
+export * from './lib/auth/hero';

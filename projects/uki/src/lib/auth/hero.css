@@ -1,0 +1,45 @@
+/*
+ * Hero de UKI: 644 px, brand/primary con el patrón decorativo (degradado brand/secondary → brand/primary al 20 %),
+ * GobMX White arriba a la izquierda (40 px) e ilustración de 600 × 743 abajo a la derecha. Oculto debajo de 1280 px.
+ */
+.uki-hero {
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+  width: 644px;
+  max-width: 100%;
+  min-height: 832px;
+  overflow: hidden;
+  background: var(--brand-primary);
+}
+
+.uki-hero__patron {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -98px;
+  width: 742px;
+  background: linear-gradient(135deg, var(--brand-secondary), var(--brand-primary));
+  opacity: 0.2;
+}
+
+.uki-hero__logo {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+}
+
+.uki-hero__ilustracion {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 600px;
+  max-width: 93%;
+  height: auto;
+}
+
+@media (max-width: 1279.98px) {
+  .uki-hero {
+    display: none;
+  }
+}

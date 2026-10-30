@@ -1,0 +1,39 @@
+/*
+ * Logotipos de UKI (página Brand). El alto sale de --uki-logo-alto (60 px Default, 32 px Small) y el ancho de la
+ * proporción del viewBox. Mínimo 32 px de alto; máximo 400 px de ancho (Guía de Estilos Gráficos Web V2.1).
+ * Las reglas por omisión van en :where() para que el sistema cambie --uki-logo-alto con cualquier selector.
+ */
+:where(.uki-logo) {
+  --uki-logo-alto: 60px;
+}
+
+:where(.uki-logo--small) {
+  --uki-logo-alto: 32px;
+}
+
+.uki-logo {
+  /* Espacio libre: x = ¼ del alto en cada lado (16 px en Default, 8 px en Small). */
+  --uki-logo-alto-real: max(32px, var(--uki-logo-alto));
+
+  display: inline-flex;
+  flex: none;
+  margin: calc(var(--uki-logo-alto-real) / 4);
+  line-height: 0;
+  vertical-align: middle;
+}
+
+.uki-logo--sin-espacio {
+  margin: 0;
+}
+
+.uki-logo__svg {
+  width: auto;
+  max-width: 400px;
+  height: var(--uki-logo-alto-real);
+}
+
+.uki-logo__marcador {
+  font-family: var(--font-family-body);
+  font-size: 15px;
+  font-weight: var(--font-weight-semibold);
+}

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
-export type NombreIcono = 'codigo' | 'copiar' | 'listo' | 'error' | 'externo' | 'flecha-izq' | 'flecha-der' | 'menu' | 'cerrar';
+export type NombreIcono = 'codigo' | 'copiar' | 'listo' | 'error' | 'externo' | 'flecha-izq' | 'flecha-der' | 'menu' | 'cerrar' | 'abajo' | 'arriba' | 'salir';
 
 /** Íconos de la documentación: SVG de 20 px, trazo de 1.5 px, siempre decorativos (el control lleva el nombre). */
 @Component({
@@ -37,6 +37,15 @@ export type NombreIcono = 'codigo' | 'copiar' | 'listo' | 'error' | 'externo' | 
         }
         @case ('cerrar') {
           <path d="m5 5 10 10M15 5 5 15" />
+        }
+        @case ('abajo') {
+          <path d="m5 7.5 5 5 5-5" />
+        }
+        @case ('arriba') {
+          <path d="m5 12.5 5-5 5 5" />
+        }
+        @case ('salir') {
+          <path d="M12 6.5V4.5a1 1 0 0 0-1-1H4.5a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1H11a1 1 0 0 0 1-1v-2M8 10h9.5M14.5 7l3 3-3 3" />
         }
       }
     </svg>

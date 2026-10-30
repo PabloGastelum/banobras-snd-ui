@@ -53,3 +53,46 @@ export function matchMediaFalso(coincide = false): MediaFalsa {
     },
   };
 }
+
+export interface AnchoFalso {
+  /** Cambia el ancho de la ventana y avisa a las consultas cuyo resultado cambió. */
+  cambiar(ancho: number): void;
+}
+
+/** `matchMedia` que evalúa `min-width` y `max-width` contra un ancho simulado (la Sidebar usa dos consultas). */
+export function anchoFalso(inicial: number): AnchoFalso {
+  let ancho = inicial;
+  const evaluar = (consulta: string) => {
+    const min = /min-width:\s*([\d.]+)px/.exec(consulta);
+    const max = /max-width:\s*([\d.]+)px/.exec(consulta);
+    return (!min || ancho >= Number(min[1])) && (!max || ancho <= Number(max[1]));
+  };
+  const listas: { consulta: string; previo: boolean; escuchas: Set<(evento: MediaQueryListEvent) => void> }[] = [];
+  window.matchMedia = (consulta: string) => {
+    const lista = { consulta, previo: evaluar(consulta), escuchas: new Set<(evento: MediaQueryListEvent) => void>() };
+    listas.push(lista);
+    return {
+      get matches() {
+        return evaluar(consulta);
+      },
+      media: consulta,
+      onchange: null,
+      addEventListener: (_tipo: string, fn: (evento: MediaQueryListEvent) => void) => lista.escuchas.add(fn),
+      removeEventListener: (_tipo: string, fn: (evento: MediaQueryListEvent) => void) => lista.escuchas.delete(fn),
+      addListener: () => undefined,
+      removeListener: () => undefined,
+      dispatchEvent: () => true,
+    } as unknown as MediaQueryList;
+  };
+  return {
+    cambiar(valor: number) {
+      ancho = valor;
+      for (const lista of listas) {
+        const ahora = evaluar(lista.consulta);
+        if (ahora === lista.previo) continue;
+        lista.previo = ahora;
+        for (const fn of lista.escuchas) fn({ matches: ahora, media: lista.consulta } as MediaQueryListEvent);
+      }
+    },
+  };
+}

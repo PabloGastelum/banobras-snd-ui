@@ -20,6 +20,10 @@ const FIGMA = 'https://www.figma.com/design/6fzZVvIfv44dGFePtb5F9n/UKI---Library
 /** Grupos de la barra lateral en el orden de las páginas del archivo de Figma. */
 const GRUPOS: { titulo: string; enlaces: Enlace[] }[] = [
   {
+    titulo: 'Marca',
+    enlaces: [{ ruta: '/logotipos', texto: 'Logotipos', figma: '572-6984' }],
+  },
+  {
     titulo: 'Fundamentos',
     enlaces: [
       { ruta: '/colores', texto: 'Colores', figma: '5-4' },
@@ -47,6 +51,18 @@ const GRUPOS: { titulo: string; enlaces: Enlace[] }[] = [
       { ruta: '/text-area', texto: 'Text area', figma: '445-931' },
       { ruta: '/text-field', texto: 'Text field', figma: '210-140' },
       { ruta: '/toast', texto: 'Toast', figma: '450-59' },
+    ],
+  },
+  {
+    titulo: 'Patrones',
+    enlaces: [
+      { ruta: '/auth', texto: 'Auth', figma: '263-913' },
+      { ruta: '/footer', texto: 'Footer', figma: '335-494' },
+      { ruta: '/header', texto: 'Header', figma: '335-493' },
+      { ruta: '/hero', texto: 'Hero', figma: '276-2468' },
+      { ruta: '/sidebar', texto: 'Sidebar', figma: '180-2372' },
+      { ruta: '/pantalla-de-acceso', texto: 'Pantalla de acceso', figma: '263-913' },
+      { ruta: '/pantalla-de-administracion', texto: 'Pantalla de administración', figma: '639-5363' },
     ],
   },
 ];
@@ -797,6 +813,17 @@ export class App {
       if (evento.key === 'Escape' && this.menuAbierto()) this.cerrarMenu();
     };
     addEventListener('keydown', alTeclear);
+    // Con <base href="/">, un enlace href="#x" apunta a la raíz y recarga la portada. En la documentación (ejemplos de
+    // Sidebar, Header, Footer, Alert…) es un ancla de la página actual: se queda en ella y lleva a la sección.
+    const alClicAncla = (evento: MouseEvent) => {
+      if (evento.defaultPrevented || evento.button !== 0 || evento.metaKey || evento.ctrlKey || evento.shiftKey || evento.altKey) return;
+      const enlace = (evento.target as Element | null)?.closest?.('a[href^="#"]');
+      if (!enlace) return;
+      const id = decodeURIComponent(enlace.getAttribute('href')!.slice(1));
+      if (id && document.getElementById(id)) this.irA(evento, id);
+      else evento.preventDefault();
+    };
+    document.addEventListener('click', alClicAncla);
     // Si la ventana crece a escritorio con el menú abierto, se cierra para no dejar la página bloqueada.
     const escritorio = matchMedia('(min-width: 1024px)');
     const alCambiarAncho = () => escritorio.matches && this.menuAbierto() && this.cerrarMenu(false);
@@ -805,6 +832,7 @@ export class App {
       suscripcion.unsubscribe();
       removeEventListener('scroll', alDesplazar);
       removeEventListener('keydown', alTeclear);
+      document.removeEventListener('click', alClicAncla);
       escritorio.removeEventListener('change', alCambiarAncho);
       document.body.style.overflow = '';
       cancelAnimationFrame(this.cuadro);

@@ -1,0 +1,561 @@
+/*
+ * Sidebar de UKI. Llena el alto de su columna: la marca, la persona y el botón de contraer quedan fijos y solo la
+ * lista hace scroll. Expandida 256 px, colapsada 56 px; en teléfono, barra inferior fija y panel «Más».
+ * Activo con sidebar/mobile-active (D16): sidebar/item-active da 3.9:1 con texto blanco.
+ */
+.uki-sidebar-anfitrion {
+  display: block;
+  flex: none;
+  height: 100%;
+}
+
+.uki-sidebar-anfitrion--movil {
+  height: auto;
+}
+
+.uki-sidebar {
+  position: relative;
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  width: 256px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--sidebar-background), var(--sidebar-background-end));
+  box-shadow: var(--elevation-raised);
+  color: var(--text-inverse);
+  font-family: var(--font-family-body);
+  transition: width 300ms ease-out;
+}
+
+.uki-sidebar--colapsada {
+  width: 56px;
+}
+
+.uki-sidebar ul,
+.uki-sidebar-panel ul,
+.uki-sidebar-movil ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.uki-sidebar__oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Barra de marca (Topbar link): 60 px, sidebar/topbar. */
+.uki-sidebar__marca {
+  position: relative;
+  display: flex;
+  box-sizing: border-box;
+  flex: none;
+  align-items: center;
+  height: 60px;
+  padding: var(--spacing-12) var(--spacing-16);
+  background: var(--sidebar-topbar);
+  color: var(--text-inverse);
+}
+
+.uki-sidebar--colapsada .uki-sidebar__marca {
+  justify-content: center;
+  padding: 0;
+}
+
+a.uki-sidebar__marca:focus-visible {
+  outline: 2px solid var(--sidebar-indicator);
+  outline-offset: -2px;
+}
+
+/* Persona (Sidebar/Header): 72 px con borde inferior text/inverse al 24 %. */
+.uki-sidebar__persona {
+  display: flex;
+  box-sizing: border-box;
+  flex: none;
+  align-items: center;
+  gap: var(--spacing-12);
+  position: relative;
+  min-height: 72px;
+  padding: var(--spacing-8) var(--spacing-16);
+}
+
+/* Borde inferior text/inverse al 24 %. */
+.uki-sidebar__persona::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: var(--text-inverse);
+  content: '';
+  opacity: 0.24;
+}
+
+.uki-sidebar--colapsada .uki-sidebar__persona {
+  justify-content: center;
+  padding-inline: 0;
+}
+
+.uki-sidebar__datos {
+  min-width: 0;
+}
+
+.uki-sidebar__nombre,
+.uki-sidebar__rol {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.uki-sidebar__nombre {
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-label);
+}
+
+.uki-sidebar__rol {
+  font-size: var(--font-size-caption);
+  line-height: var(--font-line-height-caption);
+}
+
+/* Lista: la única parte con scroll. */
+.uki-sidebar__lista {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-block: var(--spacing-8) !important;
+  scrollbar-color: var(--sidebar-item-hover) transparent;
+  scrollbar-width: thin;
+}
+
+/* Fila: Item (nivel 1, 56 px) y Subitem (nivel 2, 40 px; nivel 3, 36 px). */
+.uki-sidebar__fila {
+  position: relative;
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  gap: var(--spacing-12);
+  width: 100%;
+  min-height: 56px;
+  margin: 0;
+  padding: var(--spacing-8) var(--spacing-16);
+  border: 0;
+  background: transparent;
+  color: var(--text-inverse);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--font-line-height-label);
+  text-align: start;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.uki-sidebar__fila--nivel-2,
+.uki-sidebar__fila--nivel-3 {
+  gap: var(--spacing-8);
+  min-height: 40px;
+  padding: var(--spacing-8) var(--spacing-16) var(--spacing-8) 52px;
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body-sm);
+}
+
+.uki-sidebar__fila--nivel-3 {
+  min-height: 36px;
+  padding-left: 76px;
+}
+
+/* Línea guía que une el subelemento con su padre. */
+.uki-sidebar__fila--nivel-2::after,
+.uki-sidebar__fila--nivel-3::after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 28px;
+  width: 1px;
+  background: var(--text-inverse);
+  content: '';
+  opacity: 0.24;
+}
+
+.uki-sidebar__fila--nivel-3::after {
+  left: 60px;
+}
+
+@media (hover: hover) {
+  .uki-sidebar__fila:hover {
+    background: var(--sidebar-item-hover);
+  }
+}
+
+.uki-sidebar__fila--activa,
+.uki-sidebar__fila--activa:hover {
+  background: var(--sidebar-mobile-active);
+}
+
+.uki-sidebar__fila--nivel-1.uki-sidebar__fila--activa::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 4px;
+  background: var(--sidebar-indicator);
+  content: '';
+}
+
+.uki-sidebar__fila--nivel-2.uki-sidebar__fila--activa,
+.uki-sidebar__fila--nivel-3.uki-sidebar__fila--activa {
+  font-weight: var(--font-weight-semibold);
+}
+
+.uki-sidebar__fila:focus-visible {
+  outline: 2px solid var(--sidebar-indicator);
+  outline-offset: -2px;
+}
+
+.uki-sidebar__fila--nivel-2:focus-visible,
+.uki-sidebar__fila--nivel-3:focus-visible {
+  outline-color: var(--button-focus-ring);
+}
+
+.uki-sidebar__icono {
+  display: inline-flex;
+  flex: none;
+  width: 24px;
+  height: 24px;
+}
+
+.uki-sidebar__icono--sub {
+  width: 16px;
+  height: 16px;
+}
+
+.uki-sidebar__icono svg {
+  width: 100%;
+  height: 100%;
+}
+
+.uki-sidebar__etiqueta {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.uki-sidebar__chevron {
+  flex: none;
+}
+
+/* Colapsada: 56 × 56, solo el ícono. */
+.uki-sidebar--colapsada .uki-sidebar__fila {
+  justify-content: center;
+  padding: 0;
+}
+
+/* Botón de contraer (Toggle): 24 × 48 pegado al borde derecho, a la altura de la persona. */
+.uki-sidebar__toggle {
+  position: absolute;
+  top: 72px;
+  left: 100%;
+  z-index: 1;
+  display: inline-flex;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 48px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0 var(--radius-8) var(--radius-8) 0;
+  background: var(--sidebar-background);
+  color: var(--text-inverse);
+  cursor: pointer;
+}
+
+.uki-sidebar__toggle .uki-icono {
+  width: 16px;
+  height: 16px;
+}
+
+.uki-sidebar__toggle:focus-visible {
+  outline: 2px solid var(--sidebar-indicator);
+  outline-offset: -2px;
+}
+
+/* Panel flotante (colapsada): 188 px (220 con un nivel 3), radius-16, Elevation/overlay. */
+.uki-sidebar__flotante {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  width: 188px;
+  padding: var(--spacing-8);
+  border: 0;
+  border-radius: var(--radius-16);
+  background: var(--background-surface);
+  box-shadow: var(--elevation-overlay);
+  color: var(--text-primary);
+  font-family: var(--font-family-body);
+  animation: uki-sidebar-aparecer 150ms ease-out;
+}
+
+.uki-sidebar__flotante--tres {
+  width: 220px;
+}
+
+.uki-sidebar__flotante-titulo,
+.uki-sidebar__grupo-titulo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  margin: 0;
+  padding: var(--spacing-4) var(--spacing-8);
+  font-size: var(--font-size-caption);
+  line-height: var(--font-line-height-caption);
+}
+
+.uki-sidebar__flotante-titulo {
+  color: var(--text-secondary);
+}
+
+.uki-sidebar__grupo-titulo {
+  color: var(--text-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.uki-sidebar__flotante-lista,
+.uki-sidebar__grupo-lista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.uki-sidebar__grupo-lista {
+  position: relative;
+  padding-left: var(--spacing-16) !important;
+}
+
+.uki-sidebar__grupo-lista::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--spacing-16);
+  width: 1px;
+  background: var(--border-low-contrast);
+  content: '';
+}
+
+/* Opción del panel (Flyout item): 32 px, radius-8. */
+.uki-sidebar__opcion {
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  gap: var(--spacing-8);
+  min-height: 32px;
+  padding: var(--spacing-4) var(--spacing-8);
+  border-radius: var(--radius-8);
+  color: var(--text-primary);
+  font-size: var(--font-size-caption);
+  line-height: var(--font-line-height-caption);
+  text-decoration: none;
+}
+
+.uki-sidebar__opcion--grupo {
+  margin-left: var(--spacing-8);
+}
+
+@media (hover: hover) {
+  .uki-sidebar__opcion:hover {
+    background: var(--background-page);
+  }
+}
+
+.uki-sidebar__opcion.uki-sidebar__fila--activa {
+  background: var(--sidebar-mobile-active);
+  color: var(--text-inverse);
+}
+
+/* button/focus-ring sobre blanco da 2.5:1; border/brand cumple 3:1 (D17). */
+.uki-sidebar__opcion:focus-visible {
+  outline: 2px solid var(--border-brand);
+  outline-offset: -2px;
+}
+
+@keyframes uki-sidebar-aparecer {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Teléfono: barra inferior fija (Mobile bar) con hasta 4 destinos de 74 × 60. */
+.uki-sidebar-movil {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 900;
+  font-family: var(--font-family-body);
+}
+
+.uki-sidebar-movil__barra {
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 76px;
+  padding: var(--spacing-8) var(--spacing-8) calc(var(--spacing-8) + env(safe-area-inset-bottom, 0px)) !important;
+  border-radius: var(--radius-16) var(--radius-16) 0 0;
+  background: var(--sidebar-background);
+  box-shadow: var(--elevation-floating);
+}
+
+.uki-sidebar-movil__destino {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-4);
+  width: 74px;
+  min-height: 60px;
+  margin: 0;
+  padding: 0 var(--spacing-4);
+  border: 0;
+  border-radius: var(--radius-8);
+  background: transparent;
+  color: var(--text-inverse);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-caption);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--font-line-height-caption);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.uki-sidebar-movil__destino .uki-sidebar__etiqueta {
+  flex: none;
+  max-width: 100%;
+  overflow-wrap: normal;
+}
+
+.uki-sidebar-movil__destino.uki-sidebar__fila--activa,
+.uki-sidebar-movil__destino[aria-expanded='true'] {
+  background: var(--sidebar-mobile-active);
+}
+
+.uki-sidebar-movil__destino:focus-visible {
+  outline: 2px solid var(--sidebar-indicator);
+  outline-offset: -2px;
+}
+
+/* Panel «Más» (Mobile drawer): pantalla completa con el degradado de la Sidebar. */
+.uki-sidebar-panel {
+  position: fixed;
+  inset: 0;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: linear-gradient(180deg, var(--sidebar-background), var(--sidebar-background-end));
+  color: var(--text-inverse);
+  font-family: var(--font-family-body);
+}
+
+.uki-sidebar-panel[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.uki-sidebar-panel::backdrop {
+  background: transparent;
+}
+
+.uki-sidebar-panel__arriba {
+  display: flex;
+  box-sizing: border-box;
+  flex: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-16);
+  min-height: 56px;
+  padding: var(--spacing-8) var(--spacing-8) var(--spacing-8) var(--spacing-16);
+  background: var(--sidebar-topbar);
+}
+
+.uki-sidebar-panel__titulo {
+  margin: 0;
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-label);
+}
+
+.uki-sidebar-panel__cerrar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-4);
+  background: transparent;
+  color: var(--text-inverse);
+  cursor: pointer;
+}
+
+.uki-sidebar-panel__cerrar .uki-icono {
+  width: 24px;
+  height: 24px;
+}
+
+.uki-sidebar-panel__cerrar:focus-visible {
+  outline: 2px solid var(--sidebar-indicator);
+  outline-offset: -2px;
+}
+
+.uki-sidebar-panel__cuerpo {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding-bottom: calc(var(--spacing-24) + env(safe-area-inset-bottom, 0px));
+}
+
+.uki-sidebar-panel__seccion {
+  margin: 0;
+  padding: var(--spacing-24) var(--spacing-16) var(--spacing-8);
+  color: var(--text-inverse);
+  opacity: 0.72;
+  font-size: var(--font-size-caption);
+  line-height: var(--font-line-height-caption);
+  text-transform: uppercase;
+}
+
+.uki-sidebar-panel__divisor {
+  height: 1px;
+  margin: var(--spacing-8) var(--spacing-16) 0;
+  border: 0;
+  background: var(--text-inverse);
+  opacity: 0.24;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .uki-sidebar {
+    transition: none;
+  }
+
+  .uki-sidebar__flotante {
+    animation: none;
+  }
+}

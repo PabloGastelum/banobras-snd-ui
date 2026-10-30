@@ -1,0 +1,156 @@
+/* Menú de usuario: botón (Avatar sm + chevron) y panel de 280 px. */
+.uki-user-menu {
+  display: inline-flex;
+}
+
+.uki-user-menu__boton {
+  position: relative;
+  display: inline-flex;
+  box-sizing: border-box;
+  align-items: center;
+  gap: var(--spacing-8);
+  height: 40px;
+  margin: 0;
+  padding: var(--spacing-4) var(--spacing-8) var(--spacing-4) var(--spacing-4);
+  border: 0;
+  border-radius: var(--radius-8);
+  background: transparent;
+  color: var(--text-inverse);
+  cursor: pointer;
+}
+
+.uki-user-menu__boton[aria-expanded='true'] {
+  background: var(--sidebar-item-hover);
+}
+
+@media (hover: hover) {
+  .uki-user-menu__boton:hover {
+    background: var(--sidebar-item-hover);
+  }
+}
+
+.uki-user-menu__boton:focus-visible {
+  outline: 2px solid var(--button-focus-ring);
+  outline-offset: 0;
+}
+
+.uki-user-menu__chevron {
+  width: 16px;
+  height: 16px;
+}
+
+.uki-user-menu__panel {
+  box-sizing: border-box;
+  width: 280px;
+  padding: var(--spacing-8);
+  border: 1px solid var(--border-low-contrast);
+  border-radius: var(--radius-8);
+  background: var(--background-surface);
+  box-shadow: var(--elevation-overlay);
+  color: var(--text-primary);
+  font-family: var(--font-family-body);
+  animation: uki-user-menu-entrar 150ms ease-out;
+}
+
+.uki-user-menu__panel[hidden] {
+  display: none;
+}
+
+@keyframes uki-user-menu-entrar {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .uki-user-menu__panel {
+    animation: none;
+  }
+}
+
+.uki-user-menu__perfil {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+  padding: var(--spacing-8);
+}
+
+.uki-user-menu__datos {
+  min-width: 0;
+}
+
+.uki-user-menu__nombre,
+.uki-user-menu__rol {
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-size: var(--font-size-body-sm);
+  line-height: var(--font-line-height-body-sm);
+}
+
+.uki-user-menu__nombre {
+  font-weight: var(--font-weight-semibold);
+}
+
+.uki-user-menu__rol {
+  color: var(--text-secondary);
+}
+
+.uki-user-menu__separador {
+  height: 1px;
+  margin: var(--spacing-8) 0;
+  border: 0;
+  background: var(--border-low-contrast);
+}
+
+.uki-user-menu__opciones {
+  display: flex;
+  flex-direction: column;
+}
+
+.uki-user-menu__opcion {
+  display: flex;
+  box-sizing: border-box;
+  align-items: center;
+  gap: var(--spacing-12);
+  width: 100%;
+  min-height: 44px;
+  margin: 0;
+  padding: 0 var(--spacing-16);
+  border: 0;
+  border-radius: var(--radius-4);
+  background: transparent;
+  color: var(--text-primary);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-body-sm);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-line-height-body-sm);
+  text-align: start;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+@media (hover: hover) {
+  .uki-user-menu__opcion:hover {
+    background: var(--background-page);
+  }
+}
+
+/* button/focus-ring sobre blanco da 2.5:1; border/brand cumple 3:1 (D17). */
+.uki-user-menu__opcion:focus-visible {
+  outline: 2px solid var(--border-brand);
+  outline-offset: -2px;
+}
+
+.uki-user-menu__icono {
+  width: 20px;
+  height: 20px;
+}
+
+.uki-user-menu__oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
