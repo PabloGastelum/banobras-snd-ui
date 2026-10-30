@@ -35,6 +35,18 @@ code,
   font-variant-numeric: tabular-nums;
 }
 
+/* Valor o estado de un control en los ejemplos, como lo imprime el pipe json. */
+.doc-estado {
+  box-sizing: border-box;
+  margin: 0;
+  padding: var(--spacing-12) var(--spacing-16);
+  overflow-x: auto;
+  border-radius: var(--radius-8);
+  background: var(--neutral-300);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: var(--font-size-caption);
+}
+
 .doc-oculto {
   position: absolute;
   margin: 0;

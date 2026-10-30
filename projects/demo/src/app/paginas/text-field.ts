@@ -148,7 +148,7 @@ const TRAMITES: UkiSelectOption<string>[] = [
               <span class="uki-body-sm" aria-live="polite">{{ mensaje() }}</span>
             </div>
           </form>
-          <pre class="estado" tabindex="0" aria-label="Estado del formulario">{{ estado() | json }}</pre>
+          <pre class="doc-estado estado" tabindex="0" aria-label="Estado del formulario">{{ estado() | json }}</pre>
         </demo-ejemplo>
       </section>
     </div>
@@ -177,12 +177,6 @@ const TRAMITES: UkiSelectOption<string>[] = [
     .estado {
       flex: 1 1 260px;
       align-self: start;
-      margin: 0;
-      padding: var(--spacing-12) var(--spacing-16);
-      border-radius: var(--radius-8);
-      background: var(--neutral-300);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: var(--font-size-caption);
     }
   `,
 })
