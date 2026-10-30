@@ -245,7 +245,8 @@ interface Entrada {
       min-height: 100vh;
     }
 
-    /* Barra lateral: el marco toma el color de la marca; la columna de lectura queda en blanco. */
+    /* Barra lateral: el marco toma el color de la marca; la columna de lectura queda en blanco.
+       La marca y los datos quedan fijos; solo la navegación hace scroll. */
     .lateral {
       position: sticky;
       top: 0;
@@ -253,11 +254,23 @@ interface Entrada {
       flex-direction: column;
       gap: var(--spacing-24);
       height: 100vh;
-      overflow-y: auto;
+      overflow: hidden;
       box-sizing: border-box;
       padding: var(--spacing-24) var(--spacing-16);
       background: linear-gradient(180deg, var(--sidebar-background), var(--sidebar-background-submenu));
       color: var(--text-inverse);
+    }
+    /* La navegación llega casi al borde derecho para que la barra de scroll no deje un hueco; el canal reservado
+       mantiene los enlaces alineados con la marca y los datos. El relleno deja ver completo el contorno de foco. */
+    .lateral nav {
+      flex: 1 1 auto;
+      min-height: 0;
+      margin: 0 calc(var(--spacing-12) * -1) 0 calc(var(--spacing-4) * -1);
+      padding: var(--spacing-4);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-gutter: stable;
+      scrollbar-width: thin;
       scrollbar-color: var(--sidebar-topbar) transparent;
     }
     .lateral__panel {
@@ -637,7 +650,7 @@ interface Entrada {
         gap: var(--spacing-16);
         width: min(320px, 86vw);
         box-sizing: border-box;
-        overflow-y: auto;
+        overflow: hidden;
         padding: var(--spacing-16);
         background: linear-gradient(180deg, var(--sidebar-background), var(--sidebar-background-submenu));
         box-shadow: var(--elevation-modal);
@@ -681,6 +694,11 @@ interface Entrada {
       .menu-boton:hover,
       .menu-cerrar:hover {
         background: var(--sidebar-item-hover);
+      }
+      /* En pantallas táctiles la barra de scroll se superpone y no reserva canal: sin el corrimiento a la derecha
+         los enlaces quedan alineados con los datos del panel. */
+      .lateral nav {
+        margin-right: calc(var(--spacing-4) * -1);
       }
       .lateral nav a {
         padding-block: var(--spacing-12);

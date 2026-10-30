@@ -1,3 +1,4 @@
+import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UkiSelect, UkiSelectOption } from '@banobras/uki';
@@ -38,7 +39,7 @@ const TECLAS = [
 
 @Component({
   selector: 'demo-select',
-  imports: [UkiSelect, ReactiveFormsModule, FormsModule, DocToken, DemoEjemplo],
+  imports: [UkiSelect, ReactiveFormsModule, FormsModule, JsonPipe, DocToken, DemoEjemplo],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="doc-pagina">
@@ -92,7 +93,7 @@ const TECLAS = [
         <demo-ejemplo titulo="Lista con desplazamiento y ngModel" nombre="estado" [html]="codigo.ngModel">
           <div class="rejilla">
             <uki-select label="Estado" [options]="estadosMx" [(ngModel)]="estado" name="estado" />
-            <p class="uki-body-sm">estado = {{ estado ?? 'null' }}</p>
+            <pre class="doc-estado" data-prueba="estado-select" tabindex="0" aria-label="Valor del select">{{ { estado: estado } | json }}</pre>
           </div>
         </demo-ejemplo>
         <div class="doc-tabla-contenedor" tabindex="0">

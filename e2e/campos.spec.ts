@@ -113,11 +113,11 @@ test.describe('Select', () => {
     const lista = page.getByRole('listbox');
     expect((await lista.boundingBox())!.height).toBeLessThanOrEqual(250);
     await lista.getByRole('option', { name: 'Durango' }).click();
-    await expect(page.getByText('estado = DGO')).toBeVisible();
+    await expect(page.locator('[data-prueba="estado-select"]')).toContainText('"estado": "DGO"');
     await combo.focus();
     await page.keyboard.type('ch');
     await page.keyboard.press('Enter');
-    await expect(page.getByText('estado = CHIS')).toBeVisible();
+    await expect(page.locator('[data-prueba="estado-select"]')).toContainText('"estado": "CHIS"');
   });
 
   test('la lista no se recorta dentro de un contenedor con overflow: hidden', async ({ page }) => {
