@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', title: 'UKI · Sistema de diseño de Banobras', loadComponent: () => import('./paginas/inicio') },
+  { path: 'logotipos', title: 'Logotipos · UKI', loadComponent: () => import('./paginas/logotipos') },
   { path: 'colores', title: 'Colores · UKI', loadComponent: () => import('./paginas/colores') },
   { path: 'espaciado', title: 'Espaciado · UKI', loadComponent: () => import('./paginas/espaciado') },
   { path: 'reticula', title: 'Retícula · UKI', loadComponent: () => import('./paginas/reticula') },
@@ -22,6 +23,29 @@ export const routes: Routes = [
   { path: 'text-area', title: 'Text area · UKI', loadComponent: () => import('./paginas/text-area') },
   { path: 'text-field', title: 'Text field · UKI', loadComponent: () => import('./paginas/text-field') },
   { path: 'toast', title: 'Toast · UKI', loadComponent: () => import('./paginas/toast') },
+  { path: 'auth', title: 'Auth · UKI', loadComponent: () => import('./paginas/auth') },
+  { path: 'footer', title: 'Footer · UKI', loadComponent: () => import('./paginas/footer') },
+  { path: 'header', title: 'Header · UKI', loadComponent: () => import('./paginas/header') },
+  { path: 'hero', title: 'Hero · UKI', loadComponent: () => import('./paginas/hero') },
+  { path: 'sidebar', title: 'Sidebar · UKI', loadComponent: () => import('./paginas/sidebar') },
+  { path: 'pantalla-de-acceso', title: 'Pantalla de acceso · UKI', loadComponent: () => import('./paginas/plantilla-acceso') },
+  {
+    path: 'pantalla-de-administracion',
+    title: 'Pantalla de administración · UKI',
+    loadComponent: () => import('./paginas/plantilla-administracion'),
+  },
+  {
+    path: 'muestra/acceso',
+    title: 'Pantalla de acceso · UKI',
+    data: { sinMarco: true },
+    loadComponent: () => import('./plantillas/acceso'),
+  },
+  {
+    path: 'muestra/administracion',
+    title: 'Pantalla de administración · UKI',
+    data: { sinMarco: true },
+    loadComponent: () => import('./plantillas/administracion'),
+  },
   {
     path: 'muestra/grupo-botones',
     title: 'Button group · UKI',

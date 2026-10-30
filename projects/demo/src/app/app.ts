@@ -20,6 +20,10 @@ const FIGMA = 'https://www.figma.com/design/6fzZVvIfv44dGFePtb5F9n/UKI---Library
 /** Grupos de la barra lateral en el orden de las páginas del archivo de Figma. */
 const GRUPOS: { titulo: string; enlaces: Enlace[] }[] = [
   {
+    titulo: 'Marca',
+    enlaces: [{ ruta: '/logotipos', texto: 'Logotipos', figma: '572-6984' }],
+  },
+  {
     titulo: 'Fundamentos',
     enlaces: [
       { ruta: '/colores', texto: 'Colores', figma: '5-4' },
@@ -47,6 +51,18 @@ const GRUPOS: { titulo: string; enlaces: Enlace[] }[] = [
       { ruta: '/text-area', texto: 'Text area', figma: '445-931' },
       { ruta: '/text-field', texto: 'Text field', figma: '210-140' },
       { ruta: '/toast', texto: 'Toast', figma: '450-59' },
+    ],
+  },
+  {
+    titulo: 'Patrones',
+    enlaces: [
+      { ruta: '/auth', texto: 'Auth', figma: '263-913' },
+      { ruta: '/footer', texto: 'Footer', figma: '335-494' },
+      { ruta: '/header', texto: 'Header', figma: '335-493' },
+      { ruta: '/hero', texto: 'Hero', figma: '276-2468' },
+      { ruta: '/sidebar', texto: 'Sidebar', figma: '180-2372' },
+      { ruta: '/pantalla-de-acceso', texto: 'Pantalla de acceso', figma: '263-913' },
+      { ruta: '/pantalla-de-administracion', texto: 'Pantalla de administración', figma: '639-5363' },
     ],
   },
 ];

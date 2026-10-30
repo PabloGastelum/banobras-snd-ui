@@ -15,6 +15,11 @@ const ESTADOS = [
 
 const SECCIONES = [
   {
+    titulo: 'Marca',
+    descripcion: 'Los logotipos de Banobras, Gobierno de México, Hacienda y FONADIN, con su tamaño, espacio libre y uso.',
+    enlaces: [{ ruta: '/logotipos', texto: 'Logotipos' }],
+  },
+  {
     titulo: 'Fundamentos',
     descripcion: 'Tokens de color, espaciado, retícula, radios, elevación y tipografía.',
     enlaces: [
@@ -44,6 +49,19 @@ const SECCIONES = [
       { ruta: '/text-area', texto: 'Text area' },
       { ruta: '/text-field', texto: 'Text field' },
       { ruta: '/toast', texto: 'Toast' },
+    ],
+  },
+  {
+    titulo: 'Patrones',
+    descripcion: 'El marco de las pantallas: Sidebar, Header, Footer y la pantalla de acceso, con plantillas listas para copiar.',
+    enlaces: [
+      { ruta: '/auth', texto: 'Auth' },
+      { ruta: '/footer', texto: 'Footer' },
+      { ruta: '/header', texto: 'Header' },
+      { ruta: '/hero', texto: 'Hero' },
+      { ruta: '/sidebar', texto: 'Sidebar' },
+      { ruta: '/pantalla-de-acceso', texto: 'Pantalla de acceso' },
+      { ruta: '/pantalla-de-administracion', texto: 'Pantalla de administración' },
     ],
   },
 ];
