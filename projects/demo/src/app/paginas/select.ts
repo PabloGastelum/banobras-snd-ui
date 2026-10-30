@@ -131,6 +131,21 @@ const TECLAS = [
         </div>
       </section>
 
+      <section class="doc-seccion" aria-labelledby="t-recorte">
+        <header class="doc-encabezado">
+          <h2 id="t-recorte" class="doc-titulo">Dentro de tarjetas y modales</h2>
+          <p class="doc-descripcion">
+            La lista va en una capa superpuesta: no se recorta dentro de contenedores con overflow: hidden (tarjetas, tablas,
+            modales). Se coloca debajo del campo o arriba si no cabe, y sigue al campo al hacer scroll.
+          </p>
+        </header>
+        <demo-ejemplo titulo="Tarjeta con overflow: hidden" nombre="tarjeta" [html]="codigo.recorte">
+          <div class="tarjeta-recorte" data-prueba="contenedor-recorte">
+            <uki-select label="Entidad" [options]="estadosMx" [(ngModel)]="estadoRecorte" name="estado-recorte" data-prueba="select-recorte" />
+          </div>
+        </demo-ejemplo>
+      </section>
+
       <section class="doc-seccion" aria-labelledby="t-teclado">
         <header class="doc-encabezado">
           <h2 id="t-teclado" class="doc-titulo">Teclado</h2>
@@ -199,6 +214,15 @@ const TECLAS = [
       gap: var(--spacing-24);
       width: 100%;
     }
+    .tarjeta-recorte {
+      width: min(100%, 360px);
+      height: 120px;
+      padding: var(--spacing-16);
+      overflow: hidden;
+      border: 1px solid var(--border-low-contrast);
+      border-radius: var(--radius-8);
+      box-sizing: border-box;
+    }
     kbd {
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       font-size: var(--font-size-caption);
@@ -215,6 +239,7 @@ export default class SelectPagina {
   protected readonly conError = new FormControl<string | null>(null, Validators.required);
   protected readonly deshabilitado = new FormControl<string | null>({ value: 'alta', disabled: true });
   protected estado: string | null = 'CDMX';
+  protected estadoRecorte: string | null = null;
 
   constructor() {
     this.conError.markAsTouched();
@@ -232,5 +257,9 @@ protected readonly tramites: UkiSelectOption<string>[] = [
   { value: 'consulta', label: 'Consulta de saldo', disabled: true },
 ];`,
     ngModel: `<uki-select label="Estado" [options]="estados" [(ngModel)]="estado" name="estado" />`,
+    recorte: `<!-- La lista no se recorta aunque la tarjeta tenga overflow: hidden. -->
+<div class="tarjeta">
+  <uki-select label="Estado" [options]="estados" [(ngModel)]="estado" name="estado" />
+</div>`,
   };
 }

@@ -1,0 +1,212 @@
+/*
+ * Modal de UKI (página Modal). El <dialog> es el velo (elevation/scrim) y ocupa toda la pantalla; el panel va centrado.
+ * ::backdrop queda transparente: hasta Chrome 122 y Safari 17.4 no heredaba variables CSS y el velo no seguiría el tema.
+ * Panel: 640 px (Default) o 480 px (Small), radius-8, background/surface, Elevation/modal.
+ */
+.uki-modal-anfitrion {
+  display: contents;
+}
+
+/* Bloqueo del scroll del fondo mientras haya un modal abierto (UkiPilaModales). */
+.uki-modal-abierto {
+  overflow: hidden;
+  scrollbar-gutter: stable;
+}
+
+.uki-modal {
+  position: fixed;
+  inset: 0;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: var(--spacing-16);
+  border: 0;
+  background: var(--elevation-scrim);
+  color: var(--text-primary);
+  overflow: hidden;
+}
+
+.uki-modal[open] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: uki-modal-velo-entrada 200ms ease-out;
+}
+
+.uki-modal::backdrop {
+  background: transparent;
+}
+
+.uki-modal__panel {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 640px;
+  max-width: 100%;
+  max-height: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-8);
+  background: var(--background-surface);
+  box-shadow: var(--elevation-modal);
+}
+
+.uki-modal[open] .uki-modal__panel {
+  animation: uki-modal-panel-entrada 200ms ease-out;
+}
+
+.uki-modal--small .uki-modal__panel {
+  width: 480px;
+}
+
+/* Encabezado: 80 px, modal/header, título SemiBold h5 en modal/header-foreground. */
+.uki-modal__header {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--spacing-16);
+  padding: var(--spacing-20) var(--spacing-16) var(--spacing-20) var(--spacing-32);
+  background: var(--modal-header);
+  color: var(--modal-header-foreground);
+}
+
+.uki-modal__title {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-h5);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-h5);
+  overflow-wrap: anywhere;
+}
+
+.uki-modal__close {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-4);
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.uki-modal__close .uki-icono {
+  width: 24px;
+  height: 24px;
+}
+
+/* Figma no define el foco del × sobre el encabezado oscuro: borde de 2 px text/inverse (9.9:1 sobre modal/header). */
+.uki-modal__close:focus-visible {
+  outline: 2px solid var(--text-inverse);
+  outline-offset: 0;
+}
+
+/* Cuerpo: se desplaza si no cabe; encabezado y pie se quedan. */
+.uki-modal__body {
+  display: grid;
+  flex: 1 1 auto;
+  align-content: start;
+  gap: var(--spacing-16);
+  min-height: 0;
+  padding: var(--spacing-24) var(--spacing-32) var(--spacing-32);
+  overflow-y: auto;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-body-md);
+  line-height: var(--font-line-height-body-md);
+}
+
+.uki-modal__body > * {
+  margin: 0;
+}
+
+/* Pie: igual que Button group (apilado con el principal arriba en móvil; a la derecha en escritorio). */
+.uki-modal__footer {
+  display: flex;
+  flex: none;
+  flex-direction: column-reverse;
+  gap: var(--spacing-12);
+  padding: var(--spacing-8) var(--spacing-32) var(--spacing-32);
+}
+
+.uki-modal__footer > * {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .uki-modal__footer {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: var(--spacing-16);
+  }
+
+  .uki-modal__footer > * {
+    width: auto;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .uki-modal__header {
+    padding-left: var(--spacing-24);
+  }
+
+  .uki-modal__body {
+    padding: var(--spacing-24);
+  }
+
+  .uki-modal__footer {
+    padding: var(--spacing-8) var(--spacing-24) var(--spacing-24);
+  }
+}
+
+/* Salida: la clase dura SALIDA_MODAL_MS antes de close(). */
+.uki-modal.uki-modal--saliendo {
+  animation: uki-modal-velo-salida 200ms ease-in forwards;
+}
+
+.uki-modal--saliendo .uki-modal__panel {
+  animation: uki-modal-panel-salida 200ms ease-in forwards;
+}
+
+@keyframes uki-modal-velo-entrada {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes uki-modal-velo-salida {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes uki-modal-panel-entrada {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+}
+
+@keyframes uki-modal-panel-salida {
+  to {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .uki-modal[open],
+  .uki-modal[open] .uki-modal__panel,
+  .uki-modal.uki-modal--saliendo,
+  .uki-modal--saliendo .uki-modal__panel {
+    animation: none;
+  }
+}

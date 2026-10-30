@@ -210,4 +210,15 @@ describe('UkiSelect', () => {
     await tecla('Enter');
     expect(fixture.componentInstance.valor).toBe('estado');
   });
+
+  it('dibuja la lista en la capa superpuesta y Esc solo la cierra (no llega a un modal)', async () => {
+    const { combo, tecla, lista } = await montar(ConFormControl);
+    combo.click();
+    await tecla('ArrowDown');
+    expect(lista()!.classList).toContain('uki-capa');
+    expect(lista()!.style.top).not.toBe('');
+    const evento = await tecla('Escape');
+    expect(evento.defaultPrevented).toBe(true);
+    expect(lista()).toBeNull();
+  });
 });

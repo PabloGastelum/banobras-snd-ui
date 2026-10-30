@@ -1,0 +1,505 @@
+/*
+ * Table de UKI (página Table). Contenedor: background/surface, 1 px table/border, radius-8.
+ * Encabezado 48 px (table/header-background, Label Bold text/secondary); celdas 52 px (Body/Small text/primary) con
+ * borde inferior table/border; filas pares table/row-striped, hover table/row-hover, seleccionadas table/row-selected.
+ * En teléfono (< 768 px) las filas son tarjetas (se decide en el componente con matchMedia).
+ */
+.uki-table {
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--table-border);
+  border-radius: var(--radius-8);
+  background: var(--background-surface);
+  color: var(--text-primary);
+  font-family: var(--font-family-body);
+}
+
+/* Barra superior: 72 px; con selección, table/row-selected. */
+.uki-table__barra {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-16);
+  box-sizing: border-box;
+  min-height: 72px;
+  padding: var(--spacing-12) var(--spacing-16);
+  border-bottom: 1px solid var(--table-border);
+  background: var(--background-surface);
+}
+
+.uki-table__barra--seleccion {
+  background: var(--table-row-selected);
+}
+
+.uki-table__titulo {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--spacing-8);
+  min-width: 0;
+}
+
+.uki-table__nombre,
+.uki-table__conteo,
+.uki-table__conteo-seleccion {
+  margin: 0;
+}
+
+.uki-table__nombre {
+  font-size: var(--font-size-body-lg);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--font-line-height-body-lg);
+}
+
+.uki-table__conteo {
+  color: var(--text-secondary);
+  font-size: var(--font-size-body-sm);
+  line-height: var(--font-line-height-body-sm);
+}
+
+.uki-table__conteo-seleccion {
+  flex: 1 1 auto;
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--font-line-height-label);
+}
+
+.uki-table__buscar {
+  flex: 0 1 320px;
+  min-width: 200px;
+}
+
+.uki-table__acciones-barra {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-8);
+}
+
+.uki-table__acciones-barra:empty {
+  display: none;
+}
+
+.uki-table__quitar,
+.uki-table__accion {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-4);
+  background: none;
+  color: var(--icon-primary);
+  cursor: pointer;
+}
+
+.uki-table__quitar {
+  color: var(--icon-default);
+}
+
+.uki-table__quitar:hover,
+.uki-table__accion:hover {
+  background: var(--button-tint);
+}
+
+/* Figma usa button/focus-ring (2.5:1 sobre blanco); se usa border/brand por WCAG 1.4.11. */
+.uki-table__quitar:focus-visible,
+.uki-table__accion:focus-visible,
+.uki-table__orden:focus-visible,
+.uki-table__desplazamiento:focus-visible,
+.uki-table__tarjetas:focus-visible {
+  outline: 2px solid var(--border-brand);
+  outline-offset: -2px;
+}
+
+.uki-table__accion--delete {
+  color: var(--feedback-error-foreground);
+}
+
+.uki-table__accion--delete:hover {
+  background: var(--feedback-error-background);
+}
+
+.uki-table__accion--delete:focus-visible {
+  outline-color: var(--feedback-error-foreground);
+}
+
+.uki-table__accion--grande {
+  width: 40px;
+  height: 40px;
+}
+
+.uki-table__botones {
+  display: flex;
+  gap: var(--spacing-4);
+}
+
+/* Tabla: región con scroll horizontal en tableta y escritorio, enfocable con teclado. */
+.uki-table__desplazamiento {
+  overflow-x: auto;
+}
+
+.uki-table__tabla {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-body-sm);
+  line-height: var(--font-line-height-body-sm);
+}
+
+.uki-table__caption,
+.uki-table__anuncio {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.uki-table__tabla th {
+  box-sizing: border-box;
+  height: 48px;
+  padding: 0 var(--spacing-16);
+  border-bottom: 1px solid var(--table-border);
+  background: var(--table-header-background);
+  color: var(--text-secondary);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--font-line-height-label);
+  text-align: start;
+  white-space: nowrap;
+}
+
+.uki-table__encabezado {
+  display: inline-block;
+  max-width: 256px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+}
+
+.uki-table__orden {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-8);
+  max-width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-4);
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.uki-table__orden .uki-table__icono-orden {
+  width: 16px;
+  height: 16px;
+}
+
+.uki-table__tabla td {
+  box-sizing: border-box;
+  height: 52px;
+  min-width: 80px;
+  padding: 0 var(--spacing-16);
+  border-bottom: 1px solid var(--table-border);
+  vertical-align: middle;
+}
+
+.uki-table__texto {
+  display: block;
+  max-width: 256px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.uki-table__fin {
+  text-align: end;
+}
+
+.uki-table__fin .uki-table__texto {
+  margin-left: auto;
+}
+
+.uki-table__fin .uki-table__orden {
+  flex-direction: row-reverse;
+}
+
+.uki-table__tabla .uki-table__seleccion {
+  width: 56px;
+  min-width: 56px;
+  padding: 0 var(--spacing-8);
+}
+
+.uki-table__tabla .uki-table__acciones-col {
+  width: 1%;
+  min-width: 96px;
+}
+
+/* Filas: impares table/row, pares table/row-striped; hover y selección ganan a la franja. */
+.uki-table__fila {
+  background: var(--table-row);
+}
+
+.uki-table__fila:nth-child(even) {
+  background: var(--table-row-striped);
+}
+
+@media (hover: hover) {
+  .uki-table__fila:hover {
+    background: var(--table-row-hover);
+  }
+}
+
+.uki-table__fila.uki-table__fila--seleccionada {
+  background: var(--table-row-selected);
+}
+
+/* Vacío y cargando: 48 / 24 de relleno, espacio 12, table/row. */
+.uki-table__tabla td.uki-table__celda-estado {
+  height: auto;
+  padding: 0;
+}
+
+.uki-table__estado {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-12);
+  box-sizing: border-box;
+  min-height: 160px;
+  padding: var(--spacing-48) var(--spacing-24);
+  background: var(--table-row);
+  text-align: center;
+}
+
+.uki-table__vacio {
+  max-width: 560px;
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--font-size-body-md);
+  line-height: var(--font-line-height-body-md);
+}
+
+/* Teléfono: controles, tarjetas y paginación compacta. */
+.uki-table__controles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--spacing-16);
+  padding: var(--spacing-16);
+  border-bottom: 1px solid var(--table-border);
+}
+
+.uki-table__ordenar {
+  flex: 1 1 200px;
+}
+
+.uki-table__tarjetas {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--spacing-12);
+  margin: 0;
+  padding: var(--spacing-16);
+  background: var(--background-page);
+  list-style: none;
+}
+
+.uki-table__tarjeta {
+  display: grid;
+  gap: var(--spacing-12);
+  padding: var(--spacing-16);
+  border: 1px solid var(--table-border);
+  border-radius: var(--radius-8);
+  background: var(--table-row);
+}
+
+.uki-table__tarjeta--seleccionada {
+  border-color: var(--border-brand);
+  background: var(--table-row-selected);
+}
+
+.uki-table__tarjeta-arriba {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-8);
+  min-height: 40px;
+}
+
+.uki-table__tarjeta-titulo {
+  flex: 1 1 auto;
+  overflow-wrap: anywhere;
+  min-width: 0;
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--font-line-height-label);
+}
+
+.uki-table__campos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--spacing-12) var(--spacing-16);
+  margin: 0;
+}
+
+.uki-table__campo dt {
+  color: var(--text-secondary);
+  font-size: var(--font-size-caption);
+  line-height: var(--font-line-height-caption);
+}
+
+.uki-table__campo dd {
+  margin: 0;
+  font-size: var(--font-size-body-sm);
+  line-height: var(--font-line-height-body-sm);
+}
+
+.uki-table__campo .uki-table__texto {
+  max-width: none;
+  white-space: normal;
+}
+
+/* Paginación: 56 px; página actual checkbox/selected; hover button/tint. */
+.uki-table-paginacion {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-16);
+  box-sizing: border-box;
+  min-height: 56px;
+  padding: var(--spacing-12) var(--spacing-16) var(--spacing-12) var(--spacing-24);
+  border-top: 1px solid var(--table-border);
+  background: var(--background-surface);
+  font-size: var(--font-size-body-sm);
+  line-height: var(--font-line-height-body-sm);
+}
+
+.uki-table-paginacion--movil {
+  justify-content: space-between;
+  padding-left: var(--spacing-16);
+}
+
+.uki-table-paginacion__filas {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+}
+
+.uki-table-paginacion__etiqueta {
+  color: var(--text-secondary);
+}
+
+.uki-table-paginacion__selector {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.uki-table-paginacion__select {
+  box-sizing: border-box;
+  height: 32px;
+  padding: 0 var(--spacing-32) 0 var(--spacing-12);
+  border: 1px solid var(--field-border);
+  border-radius: var(--radius-4);
+  background: var(--field-background);
+  color: var(--text-primary);
+  font: inherit;
+  appearance: none;
+  cursor: pointer;
+}
+
+.uki-table-paginacion__select:hover {
+  border-color: var(--field-border-hover);
+}
+
+.uki-table-paginacion__select:focus-visible {
+  border-color: var(--field-border-focus);
+  outline: none;
+  box-shadow: inset 0 0 0 1px var(--field-border-focus);
+}
+
+.uki-table-paginacion__selector .uki-table-paginacion__chevron {
+  position: absolute;
+  right: var(--spacing-8);
+  width: 16px;
+  height: 16px;
+  color: var(--icon-default);
+  pointer-events: none;
+}
+
+.uki-table-paginacion__rango {
+  flex: 1 1 auto;
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.uki-table-paginacion__paginas {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
+.uki-table-paginacion__boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 var(--spacing-4);
+  border: 0;
+  border-radius: var(--radius-4);
+  background: none;
+  color: var(--text-primary);
+  font: inherit;
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+}
+
+.uki-table-paginacion__boton .uki-icono {
+  width: 16px;
+  height: 16px;
+}
+
+.uki-table-paginacion__boton:hover:not([aria-disabled='true'], .uki-table-paginacion__boton--actual, .uki-table-paginacion__boton--salto) {
+  background: var(--button-tint);
+}
+
+.uki-table-paginacion__boton:focus-visible {
+  outline: 2px solid var(--border-brand);
+  outline-offset: 0;
+}
+
+.uki-table-paginacion__boton--actual {
+  background: var(--checkbox-selected);
+  color: var(--text-inverse);
+}
+
+.uki-table-paginacion__boton[aria-disabled='true'],
+.uki-table-paginacion__boton--salto {
+  color: var(--text-disabled);
+  cursor: default;
+}
+
+.uki-table-paginacion__actual-movil {
+  min-width: 48px;
+  text-align: center;
+}
+
+/* Alto contraste de Windows: la fila seleccionada y la página actual necesitan un borde. */
+@media (forced-colors: active) {
+  .uki-table__fila--seleccionada td {
+    border-block: 2px solid CanvasText;
+  }
+
+  .uki-table-paginacion__boton--actual {
+    outline: 2px solid CanvasText;
+  }
+}

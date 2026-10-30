@@ -1,6 +1,7 @@
 /*
  * Select de UKI (Fields: Select). La caja usa los estilos de .uki-input (field.css); Open usa .uki-input--activo.
  * Menú: background/surface, 1 px border/low-contrast, radius-4, Elevation/overlay, máximo 6 opciones (248 px).
+ * El menú va en la capa superpuesta (capa.css): posición fija calculada desde la caja.
  */
 .uki-select {
   display: grid;
@@ -54,11 +55,6 @@
 }
 
 .uki-select__menu {
-  position: absolute;
-  top: calc(100% + var(--spacing-4));
-  left: 0;
-  right: 0;
-  z-index: 20;
   box-sizing: border-box;
   display: grid;
   gap: var(--spacing-2);

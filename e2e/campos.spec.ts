@@ -119,6 +119,30 @@ test.describe('Select', () => {
     await page.keyboard.press('Enter');
     await expect(page.getByText('estado = CHIS')).toBeVisible();
   });
+
+  test('la lista no se recorta dentro de un contenedor con overflow: hidden', async ({ page }) => {
+    const contenedor = page.locator('[data-prueba="contenedor-recorte"]');
+    await expect(contenedor).toHaveCSS('overflow', 'hidden');
+    const combo = page.getByRole('combobox', { name: 'Entidad' });
+    await combo.scrollIntoViewIfNeeded();
+    await combo.click();
+    const lista = page.getByRole('listbox');
+    const caja = (await contenedor.boundingBox())!;
+    const cajaLista = (await lista.boundingBox())!;
+    // La lista (6 opciones, 248 px) es más alta que la tarjeta (120 px) y sale de ella.
+    expect(cajaLista.height).toBeGreaterThan(200);
+    expect(cajaLista.y + cajaLista.height).toBeGreaterThan(caja.y + caja.height);
+    // La sexta opción está a la vista y es la que recibe el clic: no la tapa ni la corta la tarjeta.
+    const sexta = lista.getByRole('option').nth(5);
+    const punto = (await sexta.boundingBox())!;
+    const encima = await page.evaluate(
+      ({ x, y }) => document.elementFromPoint(x, y)?.closest('[role=option]')?.textContent?.trim(),
+      { x: punto.x + punto.width / 2, y: punto.y + punto.height / 2 },
+    );
+    expect(encima).toBe('Chihuahua');
+    await sexta.click();
+    await expect(combo).toHaveText(/Chihuahua/);
+  });
 });
 
 test.describe('Search', () => {
