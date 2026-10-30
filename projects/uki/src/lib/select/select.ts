@@ -15,6 +15,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { idUnico, SeguidorDeControl } from '../field/estado-control';
+import { UkiCapa } from '../capa/capa';
 import { UkiIcono } from '../iconos/icono';
 
 export interface UkiSelectOption<T = unknown> {
@@ -53,7 +54,7 @@ const normalizar = (texto: string) =>
       }
       <span aria-hidden="true">:</span>
     </span>
-    <div class="uki-select__caja">
+    <div class="uki-select__caja" #caja>
       <button
         #disparador
         type="button"
@@ -121,7 +122,7 @@ const normalizar = (texto: string) =>
       </div>
     }
   `,
-  styleUrls: ['../field/field.css', './select.css'],
+  styleUrls: ['../field/field.css', '../capa/capa.css', './select.css'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'uki-select' },
@@ -152,6 +153,8 @@ export class UkiSelect<T = unknown> implements ControlValueAccessor, AfterConten
   private readonly seguidor = new SeguidorDeControl(this.ngControl);
   private readonly disparador = viewChild.required<ElementRef<HTMLButtonElement>>('disparador');
   private readonly lista = viewChild<ElementRef<HTMLElement>>('lista');
+  private readonly caja = viewChild.required<ElementRef<HTMLElement>>('caja');
+  private capa?: UkiCapa;
 
   protected readonly indiceSeleccionado = computed(() => this.options().findIndex((o) => o.value === this.valor()));
   protected readonly seleccionada = computed<UkiSelectOption<T> | null>(() => this.options()[this.indiceSeleccionado()] ?? null);
@@ -172,7 +175,22 @@ export class UkiSelect<T = unknown> implements ControlValueAccessor, AfterConten
   constructor() {
     // Patrón de Angular Material: el componente es su propio ControlValueAccessor sin dependencia circular.
     if (this.ngControl) this.ngControl.valueAccessor = this;
-    inject(DestroyRef).onDestroy(() => clearTimeout(this.temporizadorLetras));
+    inject(DestroyRef).onDestroy(() => {
+      clearTimeout(this.temporizadorLetras);
+      this.capa?.cerrar();
+    });
+    // La lista va en la capa superpuesta: no se recorta dentro de contenedores con overflow: hidden ni de un modal.
+    afterRenderEffect(() => {
+      const lista = this.lista()?.nativeElement;
+      if (!lista) {
+        this.capa?.cerrar();
+        this.capa = undefined;
+        return;
+      }
+      if (this.capa) return;
+      this.capa = new UkiCapa(lista, this.caja().nativeElement, { ancho: 'ancla' });
+      this.capa.abrir();
+    });
     // La opción activa siempre queda a la vista dentro de la lista.
     afterRenderEffect(() => {
       const i = this.activo();
