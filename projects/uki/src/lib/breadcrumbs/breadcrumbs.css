@@ -1,0 +1,145 @@
+/*
+ * Breadcrumbs de UKI. Elemento: 24 px, relleno spacing-2 / spacing-4, radius-4, estilo Label (14/20, Medium).
+ * Enlace en breadcrumb/link, siempre subrayado; Hover breadcrumb/link-hover; actual breadcrumb/current sin subrayado.
+ * Separador chevron-right de 16 px en breadcrumb/separator. En < 768 px solo queda el enlace a la página padre.
+ */
+.uki-breadcrumbs-anfitrion {
+  display: block;
+}
+
+.uki-breadcrumbs {
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-label);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--font-line-height-label);
+}
+
+.uki-breadcrumbs__lista {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.uki-breadcrumbs__nivel {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  min-width: 0;
+}
+
+.uki-breadcrumbs__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  padding: var(--spacing-2) var(--spacing-4);
+  border-radius: var(--radius-4);
+  color: var(--breadcrumb-link);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+a.uki-breadcrumbs__item:hover {
+  color: var(--breadcrumb-link-hover);
+}
+
+/* Figma usa button/focus-ring (2.5:1 sobre blanco); se usa border/brand por WCAG 1.4.11, como el Ghost button. */
+.uki-breadcrumbs__item:focus-visible,
+.uki-breadcrumbs__mas:focus-visible,
+.uki-breadcrumbs__opcion:focus-visible {
+  outline: 2px solid var(--border-brand);
+  outline-offset: 0;
+}
+
+.uki-breadcrumbs__item--actual,
+.uki-breadcrumbs__item--texto {
+  color: var(--breadcrumb-current);
+  text-decoration: none;
+}
+
+.uki-breadcrumbs .uki-breadcrumbs__icono {
+  width: 16px;
+  height: 16px;
+}
+
+.uki-breadcrumbs .uki-breadcrumbs__separador {
+  width: 16px;
+  height: 16px;
+  color: var(--breadcrumb-separator);
+}
+
+.uki-breadcrumbs__mas {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-4);
+  background: none;
+  color: var(--breadcrumb-link);
+  cursor: pointer;
+}
+
+.uki-breadcrumbs__mas:hover,
+.uki-breadcrumbs__mas[aria-expanded='true'] {
+  background: var(--button-tint);
+  color: var(--breadcrumb-link-hover);
+}
+
+/* Lista de niveles ocultos: en la capa superpuesta, como la lista del Select. */
+.uki-breadcrumbs__menu {
+  box-sizing: border-box;
+  display: grid;
+  gap: var(--spacing-2);
+  min-width: 200px;
+  max-width: min(320px, calc(100vw - 16px));
+  margin: 0;
+  padding: var(--spacing-4);
+  border: 1px solid var(--border-low-contrast);
+  border-radius: var(--radius-4);
+  background: var(--background-surface);
+  box-shadow: var(--elevation-overlay);
+  list-style: none;
+}
+
+.uki-breadcrumbs__opcion {
+  display: block;
+  padding: var(--spacing-8) var(--spacing-12);
+  border-radius: var(--radius-4);
+  color: var(--breadcrumb-link);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.uki-breadcrumbs__opcion:hover {
+  background: var(--background-page);
+  color: var(--breadcrumb-link-hover);
+}
+
+.uki-breadcrumbs__volver {
+  display: none;
+}
+
+.uki-breadcrumbs__oculto {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (max-width: 767.98px) {
+  .uki-breadcrumbs__lista {
+    display: none;
+  }
+
+  .uki-breadcrumbs__volver {
+    display: block;
+  }
+}
