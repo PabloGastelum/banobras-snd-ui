@@ -21,6 +21,8 @@ const ESPERA_OCULTAR_MS = 100;
 })
 export class UkiTooltip {
   readonly texto = input.required<string>({ alias: 'ukiTooltip' });
+  /** Arriba del elemento (acciones de la tabla) o a su derecha (Sidebar colapsada). */
+  readonly lado = input<'arriba' | 'derecha'>('arriba', { alias: 'ukiTooltipLado' });
 
   private readonly anfitrion: HTMLElement = inject(ElementRef).nativeElement;
   private readonly renderer = inject(Renderer2);
@@ -43,7 +45,7 @@ export class UkiTooltip {
 
   protected mostrar(): void {
     clearTimeout(this.temporizador);
-    if (this.elemento) return;
+    if (this.elemento || !this.texto()) return;
     const elemento: HTMLElement = this.renderer.createElement('span');
     this.renderer.addClass(elemento, 'uki-tooltip');
     this.renderer.setAttribute(elemento, 'aria-hidden', 'true');
@@ -53,7 +55,8 @@ export class UkiTooltip {
     // Junto al botón, no dentro: así queda dentro del mismo modal (no inerte) sin ser parte del nombre del botón.
     this.renderer.insertBefore(this.anfitrion.parentNode, elemento, this.anfitrion.nextSibling);
     this.elemento = elemento;
-    this.capa = new UkiCapa(elemento, this.anfitrion, { lado: 'arriba', alinear: 'centro', separacion: 4 });
+    const derecha = this.lado() === 'derecha';
+    this.capa = new UkiCapa(elemento, this.anfitrion, derecha ? { lado: 'derecha', separacion: 8 } : { lado: 'arriba', alinear: 'centro', separacion: 4 });
     this.capa.abrir();
     this.document.addEventListener('keydown', this.alTeclear, true);
   }

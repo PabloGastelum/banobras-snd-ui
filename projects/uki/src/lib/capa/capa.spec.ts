@@ -45,6 +45,29 @@ describe('UkiCapa', () => {
     expect(panel.dataset['lado']).toBe('abajo');
   });
 
+  it('alinea el borde derecho del panel con el del ancla (alinear: fin)', () => {
+    const { ancla, panel } = preparar({ top: 10, bottom: 50, left: 900, right: 980, width: 80 }, { alto: 140, ancho: 280 });
+    new UkiCapa(panel, ancla, { alinear: 'fin' }).abrir();
+    expect(panel.style.left).toBe(`${980 - 280}px`);
+    expect(panel.style.top).toBe('54px');
+  });
+
+  it('coloca el panel a la derecha del ancla, alineado arriba (lado: derecha)', () => {
+    const { ancla, panel } = preparar({ top: 200, bottom: 256, left: 0, right: 56, width: 56, height: 56 }, { alto: 140, ancho: 188 });
+    new UkiCapa(panel, ancla, { lado: 'derecha', separacion: 8 }).abrir();
+    expect(panel.style.left).toBe('64px');
+    expect(panel.style.top).toBe('200px');
+    expect(panel.dataset['lado']).toBe('derecha');
+  });
+
+  it('a la derecha, lo sube si no cabe abajo y lo voltea a la izquierda si no cabe a la derecha', () => {
+    const { ancla, panel } = preparar({ top: 700, bottom: 756, left: 1100, right: 1156, width: 56, height: 56 }, { alto: 300, ancho: 188 });
+    new UkiCapa(panel, ancla, { lado: 'derecha', separacion: 8 }).abrir();
+    expect(panel.style.top).toBe(`${800 - 300 - 8}px`);
+    expect(panel.style.left).toBe(`${1100 - 8 - 188}px`);
+    expect(panel.dataset['lado']).toBe('izquierda');
+  });
+
   it('se recoloca con scroll y resize, y deja de escuchar al cerrar', () => {
     const rect = { top: 100, bottom: 148, left: 40, width: 320 };
     const { ancla, panel } = preparar(rect);
