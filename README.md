@@ -46,6 +46,9 @@ El Sistema Nacional de Diseño solo se distribuye como CSS y JS por CDN: no hay 
 | **Toast** | `UkiToastService` | `success()` · `info()` · `warning()` · `error()` · `show({ type, title, description, duration })`; uno a la vez, anunciado sin mover el foco |
 | **Badge** | `<uki-badge>` | `type`: `success` · `info` · `warning` · `error`; la etiqueta es el contenido |
 | **Avatar** | `<uki-avatar>` | `name` · `src` · `size`: `xs` 24 · `sm` 32 · `md` 40 · `lg` 48 · `xl` 56 · `status` · `decorative` · `initials` |
+| **Modal** | `<uki-modal>` · `UkiDialogService` | `[(open)]` · `title` · `size`: `default` 640 · `small` 480 · `type`: `informative` · `confirmation` · `closeOnEsc` · `closeOnBackdrop` · `(closed)`; `ukiModalFooter`, `ukiModalClose`, `ukiModalFocus`; servicio con `confirm()` → `Promise<boolean>` e `inform()` |
+| **Breadcrumbs** | `<uki-breadcrumbs>` | `[items]`: `{ label, link?, href? }`; el último es la página actual · desde 5 niveles colapsa en «…» · en móvil, enlace «‹ Padre» |
+| **Table** | `<uki-table>` | `caption` · `columns` · `rows` (solo la página) · `total` · `rowKey` · `rowLabel` · `selectable` + `[(selection)]` · `actions` · `searchable` + `(searchChange)` · `loading` · `[(page)]` · `[(pageSize)]` · `[(sort)]` · `(action)`; celdas propias con `ukiTableCell`; tarjetas en móvil |
 
 > [!NOTE]
 > UKI va en la v0.5.0 de Figma y todavía puede cambiar tokens antes de su v1.0.0. El paquete registra la versión que implementa en `uki.figmaVersion` de [`projects/uki/package.json`](projects/uki/package.json).
@@ -57,6 +60,8 @@ El Sistema Nacional de Diseño solo se distribuye como CSS y JS por CDN: no hay 
 ```bash
 npm install ../banobras-snd-ui/dist/uki/banobras-uki-0.1.0.tgz
 ```
+
+Pide como peerDependencies `@angular/common`, `core`, `forms` y `router` de la versión 20 a la 22 (Breadcrumbs usa `routerLink`).
 
 **2. Agrega los estilos globales** antes de los del proyecto, en `angular.json`:
 
@@ -122,6 +127,22 @@ export class Guardar {
 </uki-alert>
 <uki-badge type="warning">En revisión</uki-badge>
 <uki-avatar name="Mariana López Hernández" src="/fotos/mlopez.jpg" size="lg" status />
+
+<!-- Navegación y datos: la tabla no ordena, filtra ni pagina; emite eventos y el servidor responde. -->
+<uki-breadcrumbs [items]="[{ label: 'Inicio', link: '/' }, { label: 'Trámites', link: '/tramites' }, { label: 'SOL-2026-0148' }]" />
+<uki-table caption="Solicitudes" [columns]="columnas" [rows]="pagina().filas" [total]="pagina().total"
+           [rowKey]="porFolio" selectable [(selection)]="seleccion" [actions]="['view', 'edit', 'delete']"
+           searchable [loading]="cargando()" [(page)]="numero" [(pageSize)]="tamano" [(sort)]="orden"
+           (searchChange)="buscar($event)" (action)="actuar($event)">
+  <ng-template ukiTableCell="estado" let-fila><uki-badge [type]="fila.tipo">{{ fila.estado }}</uki-badge></ng-template>
+</uki-table>
+<uki-modal [(open)]="editando" title="Cambiar responsable" size="small">
+  …
+  <div ukiModalFooter>
+    <button ukiButton variant="secondary" type="button" ukiModalClose>Cancelar</button>
+    <button ukiButton type="submit" form="responsable">Guardar</button>
+  </div>
+</uki-modal>
 ```
 
 ```ts
@@ -130,6 +151,19 @@ private readonly avisos = inject(UkiToastService);
 
 guardar(): void {
   this.avisos.success('Solicitud enviada', 'Te enviamos el acuse por correo.');
+}
+
+// Modal de confirmación desde el código: el botón Danger repite la acción.
+private readonly dialogos = inject(UkiDialogService);
+
+async eliminar(folio: string): Promise<void> {
+  const confirmado = await this.dialogos.confirm({
+    title: '¿Eliminar el trámite?',
+    message: 'Esta acción no se puede deshacer.',
+    confirmLabel: 'Eliminar',
+    destructive: true,
+  });
+  if (confirmado) this.tramites.eliminar(folio);
 }
 ```
 
@@ -143,6 +177,9 @@ guardar(): void {
 - **Toast** crea una sola región al final de `<body>` con dos regiones vivas fijas (`status` y `alert`); el aviso no toma el foco, se pausa con el puntero encima o el foco dentro, y Esc lo cierra si el foco está dentro. Un aviso nuevo reemplaza al visible.
 - **Alert** con `dismissible` se oculta al cerrarlo y lleva el foco al siguiente elemento enfocable.
 - **Avatar** sin `src`, o si la foto no carga, muestra las iniciales de `name` (sin «de», «del», «la», «los», «las» ni «y») sobre `brand/primary`. Con el nombre escrito al lado, usa `decorative`.
+- **Modal** usa `<dialog>` con `showModal()`: queda en la capa superior y lo de atrás es inerte. El foco entra a Cancelar (Confirmation), al botón principal (Informative) o al elemento con `ukiModalFocus`; da la vuelta con Tab y vuelve al disparador al cerrar. Esc y × cierran; un clic en el velo no, salvo con `closeOnBackdrop`. El scroll de la página se bloquea y la región de avisos de Toast pasa dentro del modal abierto.
+- **Capa superpuesta**: la lista del Select, el menú «…» de Breadcrumbs y los tooltips de Table se colocan con `position: fixed` (y en la capa superior con el Popover API, si el navegador lo tiene). No se recortan dentro de contenedores con `overflow: hidden`.
+- **Table** recibe solo la página actual. Emite `sort`, `page`, `pageSize`, `searchChange` y `action`; la selección son las claves de `rowKey` y se conserva entre páginas. Debajo de 768 px dibuja tarjetas en lugar de la tabla.
 
 </details>
 
@@ -170,7 +207,7 @@ La documentación está publicada en **<https://banobras-uki.vercel.app>** (desp
 | <img src="docs/img/ejemplo-codigo.png" alt="Ejemplo de formulario reactivo con «Ver código» abierto y pestañas avisos.html y avisos.ts." width="440"> | <img src="docs/img/menu-movil.png" alt="Menú de navegación abierto en un teléfono, con la marca UKI, los grupos Fundamentos y Componentes y el botón para cerrar." width="200"> |
 | **Ejemplos vivos.** Cada ejemplo tiene «Ver código» (pestañas `.html` / `.ts` / `.css` con resaltado) y «Copiar». Los tokens y las escalas de color se copian con un clic. | **Responsiva.** En móvil la navegación vive en un menú lateral; en escritorio hay índice «En esta página» y anterior/siguiente. |
 
-Incluye **Fundamentos** (colores, espaciado, retícula, radios, elevación y tipografía) y **Componentes** (Alert, Avatar, Badge, Button, Checkbox, Search, Select, Spinner, Text area, Text field y Toast, con la distribución de cada página de Figma: Overview, Átomos o Moléculas, Anatomía y Estados, Tipos o Tamaños), además de un selector de tema y un enlace a Figma en cada página.
+Incluye **Fundamentos** (colores, espaciado, retícula, radios, elevación y tipografía) y **Componentes** (Alert, Avatar, Badge, Breadcrumbs, Button, Checkbox, Modal, Search, Select, Spinner, Table, Text area, Text field y Toast, con la distribución de cada página de Figma: Overview, Átomos o Moléculas, Anatomía y Estados, Tipos o Tamaños), además de un selector de tema y un enlace a Figma en cada página.
 
 ## Accesibilidad
 
@@ -201,7 +238,8 @@ Requiere Node 24.11.1 o posterior.
 projects/
   uki/                 Librería @banobras/uki
     src/lib/           button, button-group, checkbox, spinner, field, select, search,
-                       alert, toast, badge, avatar
+                       alert, toast, badge, avatar, modal, breadcrumbs, table,
+                       capa (interna: capa superpuesta y tooltip)
     styles/            uki.css → fonts.css, tokens.css (generado), base.css
     tokens/            uki-figma.json, exportado de Figma
     fonts/             Patria y Noto Sans, con sus licencias
@@ -228,6 +266,7 @@ docs/sdlc/             Intención, especificación y plan
 - Registro privado y responsable de publicar versiones.
 - Comparar con Figma la estela del Spinner y los íconos del Checkbox.
 - Comparar con Figma los íconos dibujados (`check-circle`, `info-circle`, `exclamation-triangle`, `x-circle`, `x`) y confirmar con diseño las iniciales del Avatar sin foto y el relleno de Badge.
-- Componentes siguientes de UKI: Modal, Breadcrumbs y Table (Radio aún no existe en UKI). Modal tiene que resolver la región de avisos de Toast dentro de un diálogo abierto.
+- Confirmar con diseño UKI: Danger en la confirmación destructiva, foco con `border/brand` en lugar de `button/focus-ring` (contraste), encabezado del Modal de 80 px (la anatomía dice 64), estilo del tooltip y cuál de las dos documentaciones de Breadcrumbs es la vigente.
+- Componentes siguientes de UKI: marca, Header, Footer, Sidebar, Auth y Hero (Radio aún no existe en UKI).
 
 La intención, la especificación y el plan, con sus decisiones y desviaciones, están en [`docs/sdlc/`](docs/sdlc/).
