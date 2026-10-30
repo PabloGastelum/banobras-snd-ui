@@ -10,6 +10,7 @@ import {
   PLATFORM_ID,
 } from '@angular/core';
 import { UkiFeedbackType } from '../feedback';
+import { UkiPilaModales } from '../modal/modal-pila';
 import { UkiToastRegion } from './toast-region';
 
 /** Success e Info se cierran solos a los 5 s; Warning y Error se quedan hasta que la persona los cierra (Figma). */
@@ -58,11 +59,14 @@ export class UkiToastService {
   private readonly injector = inject(EnvironmentInjector);
   private readonly document = inject(DOCUMENT);
   private readonly enNavegador = isPlatformBrowser(inject(PLATFORM_ID));
+  private readonly modales = inject(UkiPilaModales);
   private region?: ComponentRef<UkiToastRegion>;
+  private dejarDeObservar?: () => void;
   private siguienteId = 0;
 
   constructor() {
     inject(DestroyRef).onDestroy(() => {
+      this.dejarDeObservar?.();
       if (!this.region) return;
       // Si la aplicación ya se destruyó, ya soltó sus vistas.
       if (!this.appRef.destroyed) this.appRef.detachView(this.region.hostView);
@@ -112,13 +116,19 @@ export class UkiToastService {
     return this.show({ type: 'error', title, description });
   }
 
-  /** Crea la región una sola vez, al final de `<body>`, con la API de Angular (compatible con CSP). */
+  /**
+   * Crea la región una sola vez, al final de `<body>`, con la API de Angular (compatible con CSP). Mientras haya un modal
+   * abierto, la región vive dentro del modal de arriba: lo de fuera es inerte y el aviso no se vería ni se anunciaría.
+   */
   private obtenerRegion(): UkiToastRegion | null {
     if (!this.enNavegador) return null;
     if (!this.region) {
       this.region = createComponent(UkiToastRegion, { environmentInjector: this.injector });
       this.appRef.attachView(this.region.hostView);
-      this.document.body.appendChild(this.region.location.nativeElement);
+      const elemento: HTMLElement = this.region.location.nativeElement;
+      const colocar = (modal: HTMLElement | null) => (modal ?? this.document.body).appendChild(elemento);
+      colocar(this.modales.superior);
+      this.dejarDeObservar = this.modales.observar(colocar);
     }
     return this.region.instance;
   }
