@@ -1,0 +1,251 @@
+<!-- Ícono de un destino: plantilla propia o incorporado. Siempre decorativo. -->
+<ng-template #icono let-nombre let-sub="sub">
+  @if (plantillaIcono(nombre); as plantilla) {
+    <span class="uki-sidebar__icono" [class.uki-sidebar__icono--sub]="sub" aria-hidden="true">
+      <ng-container [ngTemplateOutlet]="plantilla" />
+    </span>
+  } @else if (iconoIncorporado(nombre); as incorporado) {
+    <uki-icono class="uki-sidebar__icono" [class.uki-sidebar__icono--sub]="sub" [nombre]="incorporado" />
+  }
+</ng-template>
+
+<!-- Destino con enlace (router o externo). -->
+<ng-template #enlace let-n let-clase="clase" let-oculta="oculta" let-tooltip="tooltip">
+  @if (n.item.link !== undefined) {
+    <a
+      [class]="clase"
+      [class.uki-sidebar__fila--activa]="n.activo"
+      [routerLink]="n.item.link"
+      [attr.aria-current]="n.activo ? 'page' : null"
+      [ukiTooltip]="tooltip ? n.item.label : ''"
+      ukiTooltipLado="derecha"
+      (click)="alElegir()"
+    >
+      <ng-container [ngTemplateOutlet]="icono" [ngTemplateOutletContext]="{ $implicit: n.item.icon, sub: n.nivel > 1 }" />
+      <span [class]="oculta ? 'uki-sidebar__oculto' : 'uki-sidebar__etiqueta'">{{ n.item.label }}</span>
+    </a>
+  } @else {
+    <a
+      [class]="clase"
+      [href]="n.item.href"
+      [ukiTooltip]="tooltip ? n.item.label : ''"
+      ukiTooltipLado="derecha"
+      (click)="alElegir()"
+    >
+      <ng-container [ngTemplateOutlet]="icono" [ngTemplateOutletContext]="{ $implicit: n.item.icon, sub: n.nivel > 1 }" />
+      <span [class]="oculta ? 'uki-sidebar__oculto' : 'uki-sidebar__etiqueta'">{{ n.item.label }}</span>
+    </a>
+  }
+</ng-template>
+
+<!-- Rama del acordeón (expandida y panel «Más»): un padre abre y cierra sus hijos; los demás navegan. -->
+<ng-template #rama let-n>
+  <li class="uki-sidebar__nodo">
+    @if (n.hijos.length) {
+      <button
+        type="button"
+        class="uki-sidebar__fila uki-sidebar__fila--nivel-{{ n.nivel }}"
+        [attr.aria-expanded]="abierta(n.clave)"
+        [attr.aria-controls]="idHijos(n.clave)"
+        (click)="alternarRama(n)"
+      >
+        <ng-container [ngTemplateOutlet]="icono" [ngTemplateOutletContext]="{ $implicit: n.item.icon, sub: n.nivel > 1 }" />
+        <span class="uki-sidebar__etiqueta">{{ n.item.label }}</span>
+        <uki-icono class="uki-sidebar__chevron" [nombre]="abierta(n.clave) ? 'chevron-up' : 'chevron-down'" />
+      </button>
+      @if (abierta(n.clave)) {
+        <ul class="uki-sidebar__hijos" [id]="idHijos(n.clave)">
+          @for (h of n.hijos; track h.clave) {
+            <ng-container [ngTemplateOutlet]="rama" [ngTemplateOutletContext]="{ $implicit: h }" />
+          }
+        </ul>
+      }
+    } @else {
+      <ng-container
+        [ngTemplateOutlet]="enlace"
+        [ngTemplateOutletContext]="{ $implicit: n, clase: 'uki-sidebar__fila uki-sidebar__fila--nivel-' + n.nivel }"
+      />
+    }
+  </li>
+</ng-template>
+
+@if (movil()) {
+  <nav class="uki-sidebar-movil" [attr.aria-label]="ariaLabel()">
+    <ul class="uki-sidebar-movil__barra">
+      @for (n of inferiores(); track n.clave) {
+        <li>
+          <ng-container [ngTemplateOutlet]="enlace" [ngTemplateOutletContext]="{ $implicit: n, clase: 'uki-sidebar-movil__destino' }" />
+        </li>
+      }
+      <li>
+        <button
+          #botonMas
+          type="button"
+          class="uki-sidebar-movil__destino"
+          aria-haspopup="dialog"
+          [attr.aria-expanded]="panelAbierto()"
+          [attr.aria-controls]="idPanel"
+          (click)="abrirPanel()"
+        >
+          <uki-icono class="uki-sidebar__icono" nombre="list" />
+          <span class="uki-sidebar__etiqueta">Más</span>
+        </button>
+      </li>
+    </ul>
+
+    <dialog
+      #panel
+      class="uki-sidebar-panel"
+      aria-modal="true"
+      [id]="idPanel"
+      [attr.aria-labelledby]="idTituloPanel"
+      (cancel)="alCancelar($event)"
+    >
+      <div class="uki-sidebar-panel__arriba">
+        <p class="uki-sidebar-panel__titulo" [id]="idTituloPanel">Menú</p>
+        <button type="button" class="uki-sidebar-panel__cerrar" aria-label="Cerrar menú" (click)="cerrarPanel()">
+          <uki-icono nombre="x" />
+        </button>
+      </div>
+      <div class="uki-sidebar-panel__cuerpo">
+        @for (s of secciones(); track $index; let primera = $first) {
+          @if (!primera) {
+            <hr class="uki-sidebar-panel__divisor" />
+          }
+          @if (s.titulo) {
+            <p class="uki-sidebar-panel__seccion" [id]="prefijo + '-seccion-' + $index">{{ s.titulo }}</p>
+          }
+          <ul class="uki-sidebar__lista-panel" [attr.aria-labelledby]="s.titulo ? prefijo + '-seccion-' + $index : null">
+            @for (n of s.nodos; track n.clave) {
+              <ng-container [ngTemplateOutlet]="rama" [ngTemplateOutletContext]="{ $implicit: n }" />
+            }
+          </ul>
+        }
+      </div>
+    </dialog>
+  </nav>
+} @else {
+  <nav class="uki-sidebar" [class.uki-sidebar--colapsada]="colapsada()" [attr.aria-label]="ariaLabel()">
+    <!-- Barra de marca (Topbar link) -->
+    @if (topbarLink(); as t) {
+      @if (t.link !== undefined) {
+        <a class="uki-sidebar__marca" [routerLink]="t.link">
+          <span class="uki-sidebar__oculto">{{ t.label }}</span>
+          <ng-container [ngTemplateOutlet]="logo" [ngTemplateOutletContext]="{ decorativo: true }" />
+        </a>
+      } @else {
+        <a class="uki-sidebar__marca" [href]="t.href">
+          <span class="uki-sidebar__oculto">{{ t.label }}</span>
+          <ng-container [ngTemplateOutlet]="logo" [ngTemplateOutletContext]="{ decorativo: true }" />
+        </a>
+      }
+    } @else {
+      <div class="uki-sidebar__marca">
+        <ng-container [ngTemplateOutlet]="logo" [ngTemplateOutletContext]="{ decorativo: false }" />
+      </div>
+    }
+    <ng-template #logo let-decorativo="decorativo">
+      @if (colapsada()) {
+        <uki-logo-banobras-icon theme="white" size="small" [clearSpace]="false" [decorative]="decorativo" />
+      } @else {
+        <uki-logo-banobras theme="white" size="small" [clearSpace]="false" [decorative]="decorativo" />
+      }
+    </ng-template>
+
+    <!-- Persona (Sidebar/Header) -->
+    @if (user(); as u) {
+      <div class="uki-sidebar__persona">
+        <uki-avatar [name]="u.name" [src]="u.avatarSrc" size="sm" status [decorative]="!colapsada()" />
+        @if (!colapsada()) {
+          <div class="uki-sidebar__datos">
+            <p class="uki-sidebar__nombre">{{ u.name }}</p>
+            @if (u.role) {
+              <p class="uki-sidebar__rol">{{ u.role }}</p>
+            }
+          </div>
+        }
+      </div>
+    }
+
+    <ul #lista class="uki-sidebar__lista" [id]="idLista">
+      @for (n of arbol(); track n.clave) {
+        @if (!colapsada()) {
+          <ng-container [ngTemplateOutlet]="rama" [ngTemplateOutletContext]="{ $implicit: n }" />
+        } @else if (n.hijos.length) {
+          <li class="uki-sidebar__nodo">
+            <button
+              type="button"
+              class="uki-sidebar__fila uki-sidebar__fila--nivel-1 uki-sidebar__disparador"
+              [class.uki-sidebar__fila--activa]="n.contieneActivo"
+              [attr.data-clave]="n.clave"
+              [attr.aria-expanded]="flotante() === n.clave"
+              [attr.aria-controls]="idFlotante(n.clave)"
+              (click)="alternarFlotante(n)"
+              (mouseenter)="entrarPuntero(n)"
+              (mouseleave)="salirPuntero()"
+            >
+              <ng-container [ngTemplateOutlet]="icono" [ngTemplateOutletContext]="{ $implicit: n.item.icon }" />
+              <span class="uki-sidebar__oculto">{{ n.item.label }}</span>
+            </button>
+            @if (flotante() === n.clave) {
+              <div
+                #panelFlotante
+                class="uki-sidebar__flotante"
+                [class.uki-sidebar__flotante--tres]="tieneTercerNivel(n)"
+                [id]="idFlotante(n.clave)"
+                (mouseenter)="quedarse()"
+                (mouseleave)="salirPuntero()"
+              >
+                <p class="uki-sidebar__flotante-titulo">{{ n.item.label }}</p>
+                <ul class="uki-sidebar__flotante-lista">
+                  @for (h of n.hijos; track h.clave) {
+                    @if (h.hijos.length) {
+                      <li class="uki-sidebar__grupo">
+                        <p class="uki-sidebar__grupo-titulo">
+                          <ng-container [ngTemplateOutlet]="icono" [ngTemplateOutletContext]="{ $implicit: h.item.icon, sub: true }" />
+                          {{ h.item.label }}
+                        </p>
+                        <ul class="uki-sidebar__grupo-lista">
+                          @for (nieto of h.hijos; track nieto.clave) {
+                            <li>
+                              <ng-container
+                                [ngTemplateOutlet]="enlace"
+                                [ngTemplateOutletContext]="{ $implicit: nieto, clase: 'uki-sidebar__opcion uki-sidebar__opcion--grupo' }"
+                              />
+                            </li>
+                          }
+                        </ul>
+                      </li>
+                    } @else {
+                      <li>
+                        <ng-container [ngTemplateOutlet]="enlace" [ngTemplateOutletContext]="{ $implicit: h, clase: 'uki-sidebar__opcion' }" />
+                      </li>
+                    }
+                  }
+                </ul>
+              </div>
+            }
+          </li>
+        } @else {
+          <li class="uki-sidebar__nodo">
+            <ng-container
+              [ngTemplateOutlet]="enlace"
+              [ngTemplateOutletContext]="{ $implicit: n, clase: 'uki-sidebar__fila uki-sidebar__fila--nivel-1', oculta: true, tooltip: true }"
+            />
+          </li>
+        }
+      }
+    </ul>
+
+    <button
+      type="button"
+      class="uki-sidebar__toggle"
+      [attr.aria-expanded]="!colapsada()"
+      [attr.aria-controls]="idLista"
+      [attr.aria-label]="colapsada() ? 'Expandir menú' : 'Contraer menú'"
+      (click)="alternarColapso()"
+    >
+      <uki-icono [nombre]="colapsada() ? 'chevron-right' : 'chevron-left'" />
+    </button>
+  </nav>
+}
