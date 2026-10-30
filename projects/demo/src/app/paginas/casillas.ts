@@ -176,13 +176,13 @@ const PARTES: Parte[] = [
             <button ukiButton variant="secondary" type="button" (click)="alternarHabilitado()">
               {{ formulario.disabled ? 'Habilitar' : 'Deshabilitar' }} formulario
             </button>
-            <pre class="estado" data-prueba="estado-reactivo" tabindex="0" aria-label="Estado del formulario">{{ estado() | json }}</pre>
+            <pre class="doc-estado estado" data-prueba="estado-reactivo" tabindex="0" aria-label="Estado del formulario">{{ estado() | json }}</pre>
           </div>
         </demo-ejemplo>
         <h3 class="doc-subtitulo">Con ngModel</h3>
         <demo-ejemplo titulo="ngModel" nombre="terminos" [html]="codigo.ngModelHtml" [ts]="codigo.ngModelTs">
           <uki-checkbox [(ngModel)]="aceptaTerminos" name="terminos">Acepto los términos y condiciones</uki-checkbox>
-          <span class="uki-body-sm">aceptaTerminos = {{ aceptaTerminos }}</span>
+          <pre class="doc-estado" data-prueba="estado-terminos" tabindex="0" aria-label="Valor del checkbox">{{ { aceptaTerminos: aceptaTerminos } | json }}</pre>
         </demo-ejemplo>
       </section>
     </div>
@@ -204,13 +204,6 @@ const PARTES: Parte[] = [
     }
     .estado {
       width: 100%;
-      box-sizing: border-box;
-      margin: 0;
-      padding: var(--spacing-12) var(--spacing-16);
-      border-radius: var(--radius-8);
-      background: var(--neutral-300);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: var(--font-size-caption);
     }
   `,
 })
