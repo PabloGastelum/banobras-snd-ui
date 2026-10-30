@@ -33,7 +33,7 @@ test('el checkbox marcado usa checkbox/selected del tema verde', async ({ page }
   await expect(page.locator('[data-prueba="checked"] input')).toHaveCSS('background-color', 'rgb(0, 47, 42)');
 });
 
-for (const pagina of ['colores', 'alert', 'avatar', 'badge', 'button', 'checkbox', 'spinner', 'text-field', 'select', 'search', 'toast']) {
+for (const pagina of ['colores', 'alert', 'avatar', 'badge', 'breadcrumbs', 'button', 'checkbox', 'modal', 'spinner', 'table', 'text-field', 'select', 'search', 'toast']) {
   test(`axe sin violaciones en /${pagina} con el tema verde`, async ({ page }) => {
     await page.goto(pagina);
     await page.getByRole('radio', { name: 'Verde' }).check();
